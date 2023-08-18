@@ -1,13 +1,38 @@
 .form {
-  margin: 40px 40px;
-  min-width: 300px;
-  width: 45%;
+  margin: 40px 0;
+  width: 100%;
 }
 
 .form-field {
   font-size: inherit;
   margin: 15px 0;
   padding: 12px 20px;
+  width: 100%;
+}
+
+.requiredfield {
+  color: #8c1515;
+  margin-left: 5px;
+}
+
+.col-date-time {
+  width: 18%;
+}
+
+
+.sectionhead {
+  color: #8c1515;
+}
+
+.weekdaycontainer {
+  background-color: #ededed;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  padding: 0 1.5rem 0.5rem;
+}
+
+.table {
   width: 100%;
 }
 

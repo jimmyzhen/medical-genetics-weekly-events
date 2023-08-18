@@ -3,24 +3,26 @@ import Header from "@components/Header";
 import Footer from "@components/Footer";
 import FeedbackForm from "@components/FeedbackForm";
 import JokeBlock from "@components/JokeBlock";
+import styles from '../components/FeedbackForm.module.css';
 
 export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Next.js Toolbox</title>
+        <title>Medical Genetics Weekly Events</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <Header title="Next.js Toolbox" />
+        <Header title="Medical Genetics Weekly Events" />
         <hr />
         <p className="description">
-          Here's an example of a Netlify Form! When you fill this out, the
-          submissions can be found in the Netlify Admin site.
+          Fill out this form for Medical Genetics weekly events newsletter. (Required field<span className={styles.requiredfield}>*</span>)
         </p>
         <FeedbackForm />
+        {/*
         <JokeBlock />
+        */}
       </main>
       <Footer />
     </div>
