@@ -11,13 +11,11 @@ export default function FeedbackForm() {
         action="/success"
       >
         <input type="hidden" name="form-name" value="feedback" />
-        {/*
         <p className={styles.hidden}>
             <label>
             Don’t fill this out if you’re human: <input name="bot-field" />
             </label>
         </p>
-        */}
   
         <label htmlFor="week">Week of<span className={styles.requiredfield}>*</span></label>
         <input id="week" className={styles['form-field']} type="text" name="week" placeholder="Example: June 26, 2023" required />
