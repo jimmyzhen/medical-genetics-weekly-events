@@ -1,0 +1,10 @@
+.preview-container {
+    background-color: #eeeeee;
+    margin: 0px auto;
+    padding: 0px;
+}
+
+.preview-table-payout {
+    background-color: #eeeeee;
+    table-layout: fixed;
+}
