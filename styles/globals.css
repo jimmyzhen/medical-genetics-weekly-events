@@ -24,3 +24,16 @@ main {
 hr {
   width: 100%;
 }
+
+.react-datepicker-wrapper {
+  display: block !important;
+}
+
+.react-datepicker-popper[data-placement^="bottom"] {
+  inset: -5px auto auto 0 !important;
+  padding-top: 0;
+}
+
+.react-datepicker__triangle {
+  transform: translate3d(120px, 0px, 0px) !important;
+}
