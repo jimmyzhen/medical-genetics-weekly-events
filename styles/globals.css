@@ -29,6 +29,15 @@ hr {
   display: block !important;
 }
 
+.react-datepicker__input-container input {
+  background-image: url('/calendar.svg');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  border: 1px solid #999;
+  border-radius: 2px;
+  padding: 13px 20px !important;
+}
+
 .react-datepicker-popper[data-placement^="bottom"] {
   inset: -5px auto auto 0 !important;
   padding-top: 0;
