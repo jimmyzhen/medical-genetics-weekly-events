@@ -46,6 +46,7 @@
   padding: 12px 20px;
   width: 100%;
 }
+
 .hidden {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
