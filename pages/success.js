@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import Link from 'next/link'
-
+import SuccessResponse from "@components/SuccessResponse";
 import Footer from '@components/Footer'
 
 export default function Success() {
@@ -12,8 +11,7 @@ export default function Success() {
       </Head>
 
       <main>
-        <h1>Form successfully submitted!</h1>
-        <p>Thank you for your weekly updates! Head back to the <Link href="/"><a>home page</a></Link>.</p>
+        <SuccessResponse />
       </main>
 
       <Footer />
