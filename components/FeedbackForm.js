@@ -1,6 +1,18 @@
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import dayjs from 'dayjs';
+
+import 'react-datepicker/dist/react-datepicker.css';
 import styles from './FeedbackForm.module.css'
 
 export default function FeedbackForm() {
+    const [weekStartDate, setWeekStartDate] = useState(new Date());
+    const [eventMondayDate, setEventMondayDate] = useState(new Date());
+    const [eventTuesdayDate, setEventTuesdayDate] = useState(new Date());
+    const [eventWednesdayDate, setEventWednesdayDate] = useState(new Date());
+    const [eventThursdayDate, setEventThursdayDate] = useState(new Date());
+    const [eventFridayDate, setEventFridayDate] = useState(new Date());
+
   return (
       <form
         className={styles.form}
@@ -18,7 +30,16 @@ export default function FeedbackForm() {
         </p>
   
         <label htmlFor="week">Week of<span className={styles.requiredfield}>*</span></label>
-        <input id="week" className={styles['form-field']} type="text" name="week" placeholder="Example: June 26, 2023" required />
+        <DatePicker
+            id="week"
+            name="week"
+            selected={weekStartDate}
+            onChange={(date) => setWeekStartDate(date)}
+            className={styles['form-field']}
+            placeholderText="Click to select a date"
+            dateFormat="MMMM d, yyyy"
+            required={true}
+        />
 
         <label htmlFor="email">Announcement</label>
         <input id="announcement" className={styles['form-field']} type="text" name="announcement" placeholder="Example: Happy birthday to Devon!" />
@@ -30,7 +51,16 @@ export default function FeedbackForm() {
           <h3>Monday</h3>
           
           <label htmlFor="monday-date">Date<span className={styles.requiredfield}>*</span></label>
-          <input id="monday-date" className={styles['form-field']} type="text" name="monday-date" placeholder="Example: June 26" required />
+          <DatePicker
+            id="monday-date"
+            name="monday-date"
+            selected={weekStartDate ? dayjs(weekStartDate).toDate() : eventMondayDate}
+            onChange={(date) => setEventMondayDate(date)}
+            className={styles['form-field']}
+            placeholderText="Click to select a date"
+            dateFormat="MMMM d, yyyy"
+            required={true}
+        />
 
           <label htmlFor="monday-event-announcement">Event Announcement</label>
           <input id="monday-event-announcement" className={styles['form-field']} type="text" name="monday-event-announcement" placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023" />
@@ -45,7 +75,20 @@ export default function FeedbackForm() {
               </thead>
               <tbody>
                   <tr>
-                      <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="monday-time-1" placeholder="Example: 9:00 AM" /></td>
+                      <td className={styles['col-date-time']}>
+                        <DatePicker
+                            name="monday-time-1"
+                            selected={eventMondayDate}
+                            onChange={(date) => setEventMondayDate(date)}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={15}
+                            timeCaption="Time"
+                            dateFormat="h:mm aa"
+                            placeholderText="Click to select a time"
+                            className={styles['form-field']}
+                            />
+                    </td>
                       <td><input className={styles['form-field']} type="text" name="monday-event-1" placeholder="Example: Breakfast" /></td>
                       <td><input className={styles['form-field']} type="text" name="monday-zoom-link-1" /></td>
                   </tr>
@@ -68,7 +111,16 @@ export default function FeedbackForm() {
           <h3>Tuesday</h3>
           
           <label htmlFor="tuesday-date">Date<span className={styles.requiredfield}>*</span></label>
-          <input id="tuesday-date" className={styles['form-field']} type="text" name="tuesday-date" placeholder="Example: June 27" required />
+          <DatePicker
+            id="tuesday-date"
+            name="tuesday-date"
+            selected={weekStartDate ? dayjs(weekStartDate).add(1, 'day').toDate() : eventTuesdayDate}
+            onChange={(date) => setEventTuesdayDate(date)}
+            className={styles['form-field']}
+            placeholderText="Click to select a date"
+            dateFormat="MMMM d, yyyy"
+            required={true}
+        />
 
           <label htmlFor="tuesday-event-announcement">Event Announcement</label>
           <input id="tuesday-event-announcement" className={styles['form-field']} type="text" name="tuesday-event-announcement" placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023" />
@@ -106,7 +158,16 @@ export default function FeedbackForm() {
           <h3>Wednesday</h3>
           
           <label htmlFor="wednesday-date">Date<span className={styles.requiredfield}>*</span></label>
-          <input id="wednesday-date" className={styles['form-field']} type="text" name="wednesday-date" placeholder="Example: June 28" required />
+          <DatePicker
+            id="wednesday-date"
+            name="wednesday-date"
+            selected={weekStartDate ? dayjs(weekStartDate).add(2, 'day').toDate() : eventWednesdayDate}
+            onChange={(date) => setEventWednesdayDate(date)}
+            className={styles['form-field']}
+            placeholderText="Click to select a date"
+            dateFormat="MMMM d, yyyy"
+            required={true}
+        />
 
           <label htmlFor="wednesday-event-announcement">Event Announcement</label>
           <input id="wednesday-event-announcement" className={styles['form-field']} type="text" name="wednesday-event-announcement" placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023" />
@@ -144,7 +205,16 @@ export default function FeedbackForm() {
           <h3>Thursday</h3>
           
           <label htmlFor="thursday-date">Date<span className={styles.requiredfield}>*</span></label>
-          <input id="thursday-date" className={styles['form-field']} type="text" name="thursday-date" placeholder="Example: June 29" required />
+          <DatePicker
+            id="thursday-date"
+            name="thursday-date"
+            selected={weekStartDate ? dayjs(weekStartDate).add(3, 'day').toDate() : eventThursdayDate}
+            onChange={(date) => setEventThursdayDate(date)}
+            className={styles['form-field']}
+            placeholderText="Click to select a date"
+            dateFormat="MMMM d, yyyy"
+            required={true}
+        />
 
           <label htmlFor="thursday-event-announcement">Event Announcement</label>
           <input id="thursday-event-announcement" className={styles['form-field']} type="text" name="thursday-event-announcement" placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023" />
@@ -182,7 +252,16 @@ export default function FeedbackForm() {
           <h3>Friday</h3>
           
           <label htmlFor="friday-date">Date<span className={styles.requiredfield}>*</span></label>
-          <input id="friday-date" className={styles['form-field']} type="text" name="friday-date" placeholder="Example: June 30" required />
+          <DatePicker
+            id="friday-date"
+            name="friday-date"
+            selected={weekStartDate ? dayjs(weekStartDate).add(4, 'day').toDate() : eventFridayDate}
+            onChange={(date) => setEventFridayDate(date)}
+            className={styles['form-field']}
+            placeholderText="Click to select a date"
+            dateFormat="MMMM d, yyyy"
+            required={true}
+        />
 
           <label htmlFor="friday-event-announcement">Event Announcement</label>
           <input id="friday-event-announcement" className={styles['form-field']} type="text" name="friday-event-announcement" placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023" />
