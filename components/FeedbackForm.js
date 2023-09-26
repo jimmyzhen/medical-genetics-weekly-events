@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import dayjs from 'dayjs';
 
@@ -6,12 +6,95 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styles from './FeedbackForm.module.css'
 
 export default function FeedbackForm() {
+  // const [weekStartDate, setWeekStartDate] = useState(new Date('2021-06-21'));
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [eventMondayDate, setEventMondayDate] = useState(new Date());
   const [eventTuesdayDate, setEventTuesdayDate] = useState(new Date());
   const [eventWednesdayDate, setEventWednesdayDate] = useState(new Date());
   const [eventThursdayDate, setEventThursdayDate] = useState(new Date());
   const [eventFridayDate, setEventFridayDate] = useState(new Date());
+  const [eventMondaySchedule, setEventMondaySchedule] = useState({
+    time_1: eventMondayDate,
+    time_2: eventMondayDate,
+    time_3: eventMondayDate,
+  });
+  const [eventTuesdaySchedule, setEventTuesdaySchedule] = useState({ 
+    time_1: eventTuesdayDate,
+    time_2: eventTuesdayDate,
+    time_3: eventTuesdayDate,
+  });
+  const [eventWednesdaySchedule, setEventWednesdaySchedule] = useState({
+    time_1: eventWednesdayDate,
+    time_2: eventWednesdayDate,
+    time_3: eventWednesdayDate,
+  });
+  const [eventThursdaySchedule, setEventThursdaySchedule] = useState({
+    time_1: eventThursdayDate,
+    time_2: eventThursdayDate,
+    time_3: eventThursdayDate,
+  });
+  const [eventFridaySchedule, setEventFridaySchedule] = useState({
+    time_1: eventFridayDate,
+    time_2: eventFridayDate,
+    time_3: eventFridayDate,
+  });
+  // medical genetics service
+  const [mgsDateRange, setMgsDateRange] = useState([null, null]);
+  const [mgsStartDate, mgsEndDate] = mgsDateRange;
+  // perinatal genetics
+  const [pgDateRange, setPgDateRange] = useState([null, null]);
+  const [pgStartDate, pgEndDate] = pgDateRange;
+  // biochemical genetics
+  const [bgDateRange, setBgDateRange] = useState([null, null]);
+  const [bgStartDate, bgEndDate] = bgDateRange;
+  // ERT
+  const [ertDateRange, setErtDateRange] = useState([null, null]);
+  const [ertStartDate, ertEndDate] = ertDateRange;
+  // genetic counselor 1
+  const [gc1DateRange, setGc1DateRange] = useState([null, null]);
+  const [gc1StartDate, gc1EndDate] = gc1DateRange;
+  // genetic counselor 2
+  const [gc2DateRange, setGc2DateRange] = useState([null, null]);
+  const [gc2StartDate, gc2EndDate] = gc2DateRange;
+  
+
+  // update event dates when week start date changes
+  useEffect(() => {
+    setEventMondayDate(weekStartDate);
+    setEventTuesdayDate(dayjs(weekStartDate).add(1, 'day').toDate());
+    setEventWednesdayDate(dayjs(weekStartDate).add(2, 'day').toDate());
+    setEventThursdayDate(dayjs(weekStartDate).add(3, 'day').toDate());
+    setEventFridayDate(dayjs(weekStartDate).add(4, 'day').toDate());
+  }, [weekStartDate]);
+
+  // update event schedule times when event dates change
+  useEffect(() => {
+    setEventMondaySchedule({
+      time_1: eventMondayDate,
+      time_2: eventMondayDate,
+      time_3: eventMondayDate,
+    });
+    setEventTuesdaySchedule({ 
+      time_1: eventTuesdayDate,
+      time_2: eventTuesdayDate,
+      time_3: eventTuesdayDate,
+    });
+    setEventWednesdaySchedule({
+      time_1: eventWednesdayDate,
+      time_2: eventWednesdayDate,
+      time_3: eventWednesdayDate,
+    });
+    setEventThursdaySchedule({
+      time_1: eventThursdayDate,
+      time_2: eventThursdayDate,
+      time_3: eventThursdayDate,
+    });
+    setEventFridaySchedule({
+      time_1: eventFridayDate,
+      time_2: eventFridayDate,
+      time_3: eventFridayDate,
+    });
+  }, [eventMondayDate, eventTuesdayDate, eventWednesdayDate, eventThursdayDate, eventFridayDate]);
 
   return (
     <form
@@ -36,7 +119,7 @@ export default function FeedbackForm() {
       selected={weekStartDate}
       onChange={(date) => setWeekStartDate(date)}
       className={styles['form-field']}
-      placeholderText="Click to select a date"
+      placeholderText="Select a date"
       dateFormat="MMMM d, yyyy"
       required={true}
     />
@@ -57,7 +140,7 @@ export default function FeedbackForm() {
         selected={weekStartDate ? dayjs(weekStartDate).toDate() : eventMondayDate}
         onChange={(date) => setEventMondayDate(date)}
         className={styles['form-field']}
-        placeholderText="Click to select a date"
+        placeholderText="Select a date"
         dateFormat="MMMM d, yyyy"
         required={true}
       />
@@ -78,14 +161,14 @@ export default function FeedbackForm() {
             <td className={styles['col-date-time']}>
               <DatePicker
                 name="monday-time-1"
-                selected={eventMondayDate}
-                onChange={(date) => setEventMondayDate(date)}
+                selected={eventMondaySchedule.time_1}
+                onChange={(date) => setEventMondaySchedule({ ...eventMondaySchedule, time_1: date })}
                 showTimeSelect
                 showTimeSelectOnly
                 timeIntervals={15}
                 timeCaption="Time"
                 dateFormat="h:mm aa"
-                placeholderText="Click to select a time"
+                placeholderText="Select a time"
                 className={styles['form-field']}
               />
             </td>
@@ -93,12 +176,38 @@ export default function FeedbackForm() {
             <td><input className={styles['form-field']} type="text" name="monday-zoom-link-1" /></td>
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="monday-time-2" placeholder="Example: 10:00 AM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="monday-time-2"
+                selected={eventMondaySchedule.time_2}
+                onChange={(date) => setEventMondaySchedule({ ...eventMondaySchedule, time_2: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="monday-event-2" placeholder="Example: Morning Meeting" /></td>
             <td><input className={styles['form-field']} type="text" name="monday-zoom-link-2" /></td> 
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="monday-time-3" placeholder="Example: 12:00 PM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="monday-time-3"
+                selected={eventMondaySchedule.time_3}
+                onChange={(date) => setEventMondaySchedule({ ...eventMondaySchedule, time_3: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="monday-event-3" placeholder="Example: Lunch" /></td>
             <td><input className={styles['form-field']} type="text" name="monday-zoom-link-3" /></td>
           </tr>
@@ -112,15 +221,15 @@ export default function FeedbackForm() {
       
       <label htmlFor="tuesday-date">Date<span className={styles.requiredfield}>*</span></label>
       <DatePicker
-      id="tuesday-date"
-      name="tuesday-date"
-      selected={weekStartDate ? dayjs(weekStartDate).add(1, 'day').toDate() : eventTuesdayDate}
-      onChange={(date) => setEventTuesdayDate(date)}
-      className={styles['form-field']}
-      placeholderText="Click to select a date"
-      dateFormat="MMMM d, yyyy"
-      required={true}
-    />
+        id="tuesday-date"
+        name="tuesday-date"
+        selected={weekStartDate ? dayjs(weekStartDate).add(1, 'day').toDate() : eventTuesdayDate}
+        onChange={(date) => setEventTuesdayDate(date)}
+        className={styles['form-field']}
+        placeholderText="Select a date"
+        dateFormat="MMMM d, yyyy"
+        required={true}
+      />
 
       <label htmlFor="tuesday-event-announcement">Event Announcement</label>
       <input id="tuesday-event-announcement" className={styles['form-field']} type="text" name="tuesday-event-announcement" placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023" />
@@ -135,17 +244,56 @@ export default function FeedbackForm() {
         </thead>
         <tbody>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="tuesday-time-1" placeholder="Example: 9:00 AM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="tuesday-time-1"
+                selected={eventTuesdaySchedule.time_1}
+                onChange={(date) => setEventTuesdaySchedule({ ...eventTuesdaySchedule, time_1: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="tuesday-event-1" placeholder="Example: Breakfast" /></td>
             <td><input className={styles['form-field']} type="text" name="tuesday-zoom-link-1" /></td>
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="tuesday-time-2" placeholder="Example: 10:00 AM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="tuesday-time-2"
+                selected={eventTuesdaySchedule.time_2}
+                onChange={(date) => setEventTuesdaySchedule({ ...eventTuesdaySchedule, time_2: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="tuesday-event-2" placeholder="Example: Morning Meeting" /></td>
             <td><input className={styles['form-field']} type="text" name="tuesday-zoom-link-2" /></td> 
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="tuesday-time-3" placeholder="Example: 12:00 PM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="tuesday-time-3"
+                selected={eventTuesdaySchedule.time_3}
+                onChange={(date) => setEventTuesdaySchedule({ ...eventTuesdaySchedule, time_3: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="tuesday-event-3" placeholder="Example: Lunch" /></td>
             <td><input className={styles['form-field']} type="text" name="tuesday-zoom-link-3" /></td>
           </tr>
@@ -159,15 +307,15 @@ export default function FeedbackForm() {
       
       <label htmlFor="wednesday-date">Date<span className={styles.requiredfield}>*</span></label>
       <DatePicker
-      id="wednesday-date"
-      name="wednesday-date"
-      selected={weekStartDate ? dayjs(weekStartDate).add(2, 'day').toDate() : eventWednesdayDate}
-      onChange={(date) => setEventWednesdayDate(date)}
-      className={styles['form-field']}
-      placeholderText="Click to select a date"
-      dateFormat="MMMM d, yyyy"
-      required={true}
-    />
+        id="wednesday-date"
+        name="wednesday-date"
+        selected={weekStartDate ? dayjs(weekStartDate).add(2, 'day').toDate() : eventWednesdayDate}
+        onChange={(date) => setEventWednesdayDate(date)}
+        className={styles['form-field']}
+        placeholderText="Select a date"
+        dateFormat="MMMM d, yyyy"
+        required={true}
+      />
 
       <label htmlFor="wednesday-event-announcement">Event Announcement</label>
       <input id="wednesday-event-announcement" className={styles['form-field']} type="text" name="wednesday-event-announcement" placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023" />
@@ -182,17 +330,56 @@ export default function FeedbackForm() {
         </thead>
         <tbody>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="wednesday-time-1" placeholder="Example: 9:00 AM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="wednesday-time-1"
+                selected={eventWednesdaySchedule.time_1}
+                onChange={(date) => setEventWednesdaySchedule({ ...eventWednesdaySchedule, time_1: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="wednesday-event-1" placeholder="Example: Breakfast" /></td>
             <td><input className={styles['form-field']} type="text" name="wednesday-zoom-link-1" /></td>
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="wednesday-time-2" placeholder="Example: 10:00 AM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="wednesday-time-2"
+                selected={eventWednesdaySchedule.time_2}
+                onChange={(date) => setEventWednesdaySchedule({ ...eventWednesdaySchedule, time_2: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="wednesday-event-2" placeholder="Example: Morning Meeting" /></td>
             <td><input className={styles['form-field']} type="text" name="wednesday-zoom-link-2" /></td> 
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="wednesday-time-3" placeholder="Example: 12:00 PM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="wednesday-time-3"
+                selected={eventWednesdaySchedule.time_3}
+                onChange={(date) => setEventWednesdaySchedule({ ...eventWednesdaySchedule, time_3: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="wednesday-event-3" placeholder="Example: Lunch" /></td>
             <td><input className={styles['form-field']} type="text" name="wednesday-zoom-link-3" /></td>
           </tr>
@@ -206,15 +393,15 @@ export default function FeedbackForm() {
       
       <label htmlFor="thursday-date">Date<span className={styles.requiredfield}>*</span></label>
       <DatePicker
-      id="thursday-date"
-      name="thursday-date"
-      selected={weekStartDate ? dayjs(weekStartDate).add(3, 'day').toDate() : eventThursdayDate}
-      onChange={(date) => setEventThursdayDate(date)}
-      className={styles['form-field']}
-      placeholderText="Click to select a date"
-      dateFormat="MMMM d, yyyy"
-      required={true}
-    />
+        id="thursday-date"
+        name="thursday-date"
+        selected={weekStartDate ? dayjs(weekStartDate).add(3, 'day').toDate() : eventThursdayDate}
+        onChange={(date) => setEventThursdayDate(date)}
+        className={styles['form-field']}
+        placeholderText="Select a date"
+        dateFormat="MMMM d, yyyy"
+        required={true}
+      />
 
       <label htmlFor="thursday-event-announcement">Event Announcement</label>
       <input id="thursday-event-announcement" className={styles['form-field']} type="text" name="thursday-event-announcement" placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023" />
@@ -229,17 +416,56 @@ export default function FeedbackForm() {
         </thead>
         <tbody>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="thursday-time-1" placeholder="Example: 9:00 AM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="thursday-time-1"
+                selected={eventThursdaySchedule.time_1}
+                onChange={(date) => setEventThursdaySchedule({ ...eventThursdaySchedule, time_1: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="thursday-event-1" placeholder="Example: Breakfast" /></td>
             <td><input className={styles['form-field']} type="text" name="thursday-zoom-link-1" /></td>
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="thursday-time-2" placeholder="Example: 10:00 AM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="thursday-time-2"
+                selected={eventThursdaySchedule.time_2}
+                onChange={(date) => setEventThursdaySchedule({ ...eventThursdaySchedule, time_2: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="thursday-event-2" placeholder="Example: Morning Meeting" /></td>
             <td><input className={styles['form-field']} type="text" name="thursday-zoom-link-2" /></td> 
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="thursday-time-3" placeholder="Example: 12:00 PM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="thursday-time-3"
+                selected={eventThursdaySchedule.time_3}
+                onChange={(date) => setEventThursdaySchedule({ ...eventThursdaySchedule, time_3: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="thursday-event-3" placeholder="Example: Lunch" /></td>
             <td><input className={styles['form-field']} type="text" name="thursday-zoom-link-3" /></td>
           </tr>
@@ -253,15 +479,15 @@ export default function FeedbackForm() {
       
       <label htmlFor="friday-date">Date<span className={styles.requiredfield}>*</span></label>
       <DatePicker
-      id="friday-date"
-      name="friday-date"
-      selected={weekStartDate ? dayjs(weekStartDate).add(4, 'day').toDate() : eventFridayDate}
-      onChange={(date) => setEventFridayDate(date)}
-      className={styles['form-field']}
-      placeholderText="Click to select a date"
-      dateFormat="MMMM d, yyyy"
-      required={true}
-    />
+        id="friday-date"
+        name="friday-date"
+        selected={weekStartDate ? dayjs(weekStartDate).add(4, 'day').toDate() : eventFridayDate}
+        onChange={(date) => setEventFridayDate(date)}
+        className={styles['form-field']}
+        placeholderText="Select a date"
+        dateFormat="MMMM d, yyyy"
+        required={true}
+      />
 
       <label htmlFor="friday-event-announcement">Event Announcement</label>
       <input id="friday-event-announcement" className={styles['form-field']} type="text" name="friday-event-announcement" placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023" />
@@ -276,17 +502,56 @@ export default function FeedbackForm() {
         </thead>
         <tbody>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="friday-time-1" placeholder="Example: 9:00 AM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="friday-time-1"
+                selected={eventFridaySchedule.time_1}
+                onChange={(date) => setEventFridaySchedule({ ...eventFridaySchedule, time_1: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="friday-event-1" placeholder="Example: Breakfast" /></td>
             <td><input className={styles['form-field']} type="text" name="friday-zoom-link-1" /></td>
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="friday-time-2" placeholder="Example: 10:00 AM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="friday-time-2"
+                selected={eventFridaySchedule.time_2}
+                onChange={(date) => setEventFridaySchedule({ ...eventFridaySchedule, time_2: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+              </td>
             <td><input className={styles['form-field']} type="text" name="friday-event-2" placeholder="Example: Morning Meeting" /></td>
             <td><input className={styles['form-field']} type="text" name="friday-zoom-link-2" /></td> 
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="friday-time-3" placeholder="Example: 12:00 PM" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="friday-time-3"
+                selected={eventFridaySchedule.time_3}
+                onChange={(date) => setEventFridaySchedule({ ...eventFridaySchedule, time_3: date })}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText="Select a time"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="friday-event-3" placeholder="Example: Lunch" /></td>
             <td><input className={styles['form-field']} type="text" name="friday-zoom-link-3" /></td>
           </tr>
@@ -309,7 +574,18 @@ export default function FeedbackForm() {
         </thead>
         <tbody>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="medical-genetics-service-date" placeholder="Ex: June 23 - June 29" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="medical-genetics-service-date"
+                selectsRange={true}
+                startDate={mgsStartDate}
+                endDate={mgsEndDate}
+                onChange={(update) => setMgsDateRange(update)}
+                placeholderText="Select a date range"
+                dateFormat="MMM d"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="medical-genetics-service-staff" placeholder="Separate by comma and space (', '). Ex: Attending - Dr. Christy Tise, Resident - Dr. Emily Dunn" /></td>
           </tr>
         </tbody>
@@ -329,15 +605,26 @@ export default function FeedbackForm() {
         </thead>
         <tbody>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="perinatal-genetics-date" placeholder="Ex: June 23 - June 29" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="perinatal-genetics-date"
+                selectsRange={true}
+                startDate={pgStartDate}
+                endDate={pgEndDate}
+                onChange={(update) => setPgDateRange(update)}
+                placeholderText="Select a date range"
+                dateFormat="MMM d"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="perinatal-genetics-staff" placeholder="Separate by comma and space (', '). Ex: Attending - Dr. Melanie Manning" /></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-     {/* On-Call Schedule - Biochemical Genetics */}
-     <div className={styles.weekdaycontainer}>
+    {/* On-Call Schedule - Biochemical Genetics */}
+    <div className={styles.weekdaycontainer}>
       <h3>Biochemical Genetics</h3>
 
       <table className={styles.table}>
@@ -349,7 +636,18 @@ export default function FeedbackForm() {
         </thead>
         <tbody>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="biochemical-genetics-date" placeholder="Ex: June 23 - June 29" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="biochemical-genetics-date"
+                selectsRange={true}
+                startDate={bgStartDate}
+                endDate={bgEndDate}
+                onChange={(update) => setBgDateRange(update)}
+                placeholderText="Select a date range"
+                dateFormat="MMM d"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="biochemical-genetics-staff" placeholder="Separate by comma and space (', '). Ex: Attending - Dr. Christy Tise, Resident - Dr. Emily Dunn, Fellow - [name]" /></td>
           </tr>
         </tbody>
@@ -369,7 +667,18 @@ export default function FeedbackForm() {
         </thead>
         <tbody>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="ert-date" placeholder="Ex: June 23 - June 29" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="ert-date"
+                selectsRange={true}
+                startDate={ertStartDate}
+                endDate={ertEndDate}
+                onChange={(update) => setErtDateRange(update)}
+                placeholderText="Select a date range"
+                dateFormat="MMM d"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="ert-staff" placeholder="Separate by comma and space (', '). Ex: Nurse Practitioner - Holly Bernal" /></td>
           </tr>
         </tbody>
@@ -433,11 +742,33 @@ export default function FeedbackForm() {
         </thead>
         <tbody>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="genetic-counselor-date-1" placeholder="Ex: June 19 - June 23" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="genetic-counselor-date-1"
+                selectsRange={true}
+                startDate={gc1StartDate}
+                endDate={gc1EndDate}
+                onChange={(update) => setGc1DateRange(update)}
+                placeholderText="Select a date range"
+                dateFormat="MMM d"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="genetic-counselor-staff-1" placeholder="Separate by comma and space (', '). Ex: GC - Ellyn Farrelly" /></td>
           </tr>
           <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="genetic-counselor-date-2" placeholder="Ex: June 26 - June 30" /></td>
+            <td className={styles['col-date-time']}>
+              <DatePicker
+                name="genetic-counselor-date-2"
+                selectsRange={true}
+                startDate={gc2StartDate}
+                endDate={gc2EndDate}
+                onChange={(update) => setGc2DateRange(update)}
+                placeholderText="Select a date range"
+                dateFormat="MMM d"
+                className={styles['form-field']}
+              />
+            </td>
             <td><input className={styles['form-field']} type="text" name="genetic-counselor-staff-2" placeholder="Separate by comma and space (', '). Ex: GC - Emma Smith" /></td>
           </tr>
         </tbody>

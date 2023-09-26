@@ -47,6 +47,15 @@ hr {
   padding: 13px 20px !important;
 }
 
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="medical-genetics-service-date"],
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="perinatal-genetics-date"] ,
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="biochemical-genetics-date"],
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="ert-date"],
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="genetic-counselor-date-1"],
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="genetic-counselor-date-2"] {
+  background-image: url('/calendar.svg');
+}
+
 .react-datepicker-popper[data-placement^="bottom"] {
   inset: -15px auto auto 0 !important;
   padding-top: 0;
