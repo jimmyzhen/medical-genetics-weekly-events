@@ -2,6 +2,7 @@ export default function Header({ title }) {
   return (
     <>
       <h1 className="title">{title}</h1>
+      {/*
       <p>
         Hi 👋! This template gives you a{" "}
         <a href="https://nextjs.org/">Next.js</a> app with the scaffolding for{" "}
@@ -21,6 +22,7 @@ export default function Header({ title }) {
         </a>
         ! Happy coding!
       </p>
+      */}
     </>
   );
 }
