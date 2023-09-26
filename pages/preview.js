@@ -23,9 +23,9 @@ export default function Preview() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'https://api.netlify.com/api/v1/forms/64df09d952d80500085cbed4/submissions',
+            url: process.env.NETLIFY_API_URL,
             headers: { 
-                'Authorization': 'Bearer TGpTWLQZFuopayM39L1T9OSXdCl7ZxLLsiZlXixGFCQ'
+                'Authorization': 'Bearer ' + process.env.NETLIFY_API_TOKEN,
             }
         };
     
