@@ -23,9 +23,9 @@ export default function Preview() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: process.env.NETLIFY_API_URL,
+            url: process.env.NEXT_PUBLIC_FORM_API,
             headers: { 
-                'Authorization': 'Bearer ' + process.env.NETLIFY_API_TOKEN,
+                'Authorization': 'Bearer ' + process.env.NEXT_PUBLIC_FORM_API_AUTH,
             }
         };
     
