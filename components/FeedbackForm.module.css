@@ -19,6 +19,10 @@
   width: 18%;
 }
 
+.col-date-range-select {
+  text-align: center;
+  width: 100px;
+}
 
 .sectionhead {
   color: #8c1515;
