@@ -1,0 +1,52 @@
+const OnCallServiceStaff = {
+    attendingPhysicians: [
+        { lastname: 'Bachir', firstname: 'Suha' },
+        { lastname: 'Bernstein', firstname: 'Jon' },
+        { lastname: 'Enns', firstname: 'Gregory' },
+        { lastname: 'Gomez-Ospina', firstname: 'Natalia' },
+        { lastname: 'Lee', firstname: 'Chung' },
+        { lastname: 'Manning', firstname: 'Melanie' },
+        { lastname: 'Matalon', firstname: 'Dena' },
+        { lastname: 'Niehaus', firstname: 'Annie' },
+        { lastname: 'Stevenson', firstname: 'David' },
+        { lastname: 'Tise', firstname: 'Christy' },
+    ],
+    residents: [
+        { lastname: 'Dunn', firstname: 'Emily' },
+        { lastname: 'Luz', firstname: 'Danielle' },
+        { lastname: 'Sule', firstname: 'Anuja' },
+        { lastname: 'Verma', firstname: 'Kajal' },
+        { lastname: 'Banerji', firstname: 'Sarah' },
+        { lastname: 'Chilakamrri', firstname: 'Lekha' },
+        { lastname: 'Juan', firstname: 'Aimee' },
+        { lastname: 'Keehan', firstname: 'Laura' },
+        { lastname: 'Neu', firstname: 'Matthew' },
+        { lastname: 'Ramos', firstname: 'Juan' },
+        { lastname: 'Rodriguez-Gil', firstname: 'Jorge' },
+        { lastname: 'Null', firstname: 'Elizabeth' },
+    ],
+    nursePractitioner: [
+        { lastname: 'Bernal', firstname: 'Holly' },
+    ],
+    nutritionists: [
+        { lastname: 'Bell', firstname: 'Lauren' },
+        { lastname: 'Pedro', firstname: 'Temitope' },
+        { lastname: 'Wright', firstname: 'Jodi' },
+    ],
+    geneticCogunselors: [
+        { lastname: 'Bonner', firstname: 'Devon' },
+        { lastname: 'Calderwood', firstname: 'Laurel' },
+        { lastname: 'Chen', firstname: 'Kelly' },
+        { lastname: 'Dunleavy', firstname: 'Brooke' },
+        { lastname: 'Dykzeul', firstname: 'Natalie' },
+        { lastname: 'Farrelly', firstname: 'Ellyn' },
+        { lastname: 'Harrington', firstname: 'Caitlin' },
+        { lastname: 'Hanson – Kahn', firstname: 'Andrea' },
+        { lastname: 'Ho', firstname: 'Wesley' },
+        { lastname: 'Kim', firstname: 'Jennifer' },
+        { lastname: 'Schelley', firstname: 'Susan' },
+        { lastname: 'Smith', firstname: 'Emma' },
+    ],
+};
+
+export default OnCallServiceStaff;
