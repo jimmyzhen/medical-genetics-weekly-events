@@ -178,7 +178,9 @@ export default function FeedbackForm() {
       hasDateRange={true}
     />
 
-    <button className={styles.button} type="submit">Submit</button>
+    <div className={styles['submit-button-container']}>
+      <button className={styles.button} type="submit">Submit</button>
+    </div>
     </form>
   )
 }
