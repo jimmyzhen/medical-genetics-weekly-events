@@ -88,8 +88,8 @@ export default function FeedbackForm() {
       title="ERT"
       onCallService="ert"
       role="nurser_practitioner"
-      roleLabel="Nurse Practitioner"
-      names={OnCallServiceStaff.nursePractitioner}
+      roleLabel="Provider"
+      names={OnCallServiceStaff.ertProvider}
       multiSelect={false}
       placeholder="Choose nurse practitioner..."
     />
