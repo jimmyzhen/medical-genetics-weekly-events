@@ -87,7 +87,7 @@ export default function FeedbackForm() {
     <OnCallServiceMultiSelect
       title="ERT"
       onCallService="ert"
-      role="nurser_practitioner"
+      role="provider"
       roleLabel="Provider"
       names={OnCallServiceStaff.ertProvider}
       multiSelect={false}
@@ -131,102 +131,52 @@ export default function FeedbackForm() {
     />
 
     {/* On-Call Schedule - Perinatal (Resident) */}
-    <div className={styles.weekdaycontainer}>
-      <h3>Perinatal (Resident)</h3>
-
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles['col-date-time']}>Dates</th>
-            <th>Staff</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="perinatal-resident-date" placeholder="Ex: June 23 - June 29" /></td>
-            <td><input className={styles['form-field']} type="text" name="perinatal-resident-staff" placeholder="Separate by comma and space (', '). Ex: Attending - Dr. Melanie Manning" /></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <OnCallServiceMultiSelect
+      title="Perinatal (Resident)"
+      onCallService="perinatal_resident"
+      role="perinatal_resident"
+      roleLabel="Resident"
+      names={OnCallServiceStaff.residents}
+      multiSelect={false}
+      placeholder="Choose resident..."
+    />
 
     {/* On-Call Schedule - Laboratory Rotation */}
-    <div className={styles.weekdaycontainer}>
-      <h3>Laboratory Rotation</h3>
-
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles['col-date-time']}>Dates</th>
-            <th>Staff</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="laboratory-rotation-date" placeholder="Ex: June 23 - June 29" /></td>
-            <td><input className={styles['form-field']} type="text" name="laboratory-rotation-staff" placeholder="Separate by comma and space (', '). Ex: Attending - Dr. Melanie Manning" /></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <OnCallServiceMultiSelect
+      title="Laboratory Rotation"
+      onCallService="laboratory_rotation"
+      role="laboratory_rotation"
+      roleLabel="Resident"
+      names={OnCallServiceStaff.residents}
+      multiSelect={false}
+      placeholder="Choose resident..."
+    />
 
     {/* On-Call Schedule - Cancer Rotation */}
-    <div className={styles.weekdaycontainer}>
-      <h3>Cancer Rotation</h3>
-
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles['col-date-time']}>Dates</th>
-            <th>Staff</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="cancer-rotation-date" placeholder="Ex: June 23 - June 29" /></td>
-            <td><input className={styles['form-field']} type="text" name="cancer-rotation-staff" placeholder="Separate by comma and space (', '). Ex: Attending - Dr. Melanie Manning" /></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <OnCallServiceMultiSelect
+      title="Cancer Rotation"
+      onCallService="cancer_rotation"
+      role="cancer_rotation"
+      roleLabel="Resident"
+      names={OnCallServiceStaff.residents}
+      multiSelect={false}
+      placeholder="Choose resident..."
+    />
 
     <h2 className={styles.sectionhead}>Out-of-Office</h2>
 
     {/* On-Call Schedule - Out-of-Office Schedule */}
-    <div className={styles.weekdaycontainer}>
-      <h3>Out-of-Office Schedule</h3>
-
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles['col-date-time']}>Dates</th>
-            <th>Staff</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="genetic-counselor-date-1" placeholder="Ex: June 26" /></td>
-            <td><input className={styles['form-field']} type="text" name="genetic-counselor-staff-1" placeholder="Separate by comma and space (', '). Ex: Brooke, Wesley" /></td>
-          </tr>
-          <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="genetic-counselor-date-2" placeholder="Ex: June 27" /></td>
-            <td><input className={styles['form-field']} type="text" name="genetic-counselor-staff-2" placeholder="Separate by comma and space (', '). Ex: Brooke" /></td>
-          </tr>
-          <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="genetic-counselor-date-3" placeholder="Ex: June 28" /></td>
-            <td><input className={styles['form-field']} type="text" name="genetic-counselor-staff-3" placeholder="Separate by comma and space (', '). Ex: Brooke" /></td>
-          </tr>
-          <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="genetic-counselor-date-4" placeholder="Ex: June 29" /></td>
-            <td><input className={styles['form-field']} type="text" name="genetic-counselor-staff-4" placeholder="Separate by comma and space (', '). Ex: Brooke" /></td>
-          </tr>
-          <tr>
-            <td className={styles['col-date-time']}><input className={styles['form-field']} type="text" name="genetic-counselor-date-5" placeholder="Ex: June 30" /></td>
-            <td><input className={styles['form-field']} type="text" name="genetic-counselor-staff-5" placeholder="Separate by comma and space (', '). Ex: Brooke, Devon" /></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <OnCallServiceMultiSelect
+      title="Out-of-Office Schedule"
+      onCallService="out_of_office"
+      role="anyone"
+      roleLabel="Names"
+      names={[...OnCallServiceStaff.ertProvider, ...OnCallServiceStaff.residents, ...OnCallServiceStaff.nutritionists, ...OnCallServiceStaff.geneticCogunselors]}
+      multiSelect={true}
+      placeholder="Choose one or more names..."
+      entries={OnCallServiceEntries.out_of_office}
+      hasDateRange={true}
+    />
 
     <button className={styles.button} type="submit">Submit</button>
     </form>
