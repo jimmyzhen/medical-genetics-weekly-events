@@ -52,7 +52,11 @@ hr {
 .FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="biochemical_genetics_date"],
 .FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="ert_date"],
 .FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="genetic_counselor_date"],
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="nutritionist_date"] {
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="nutritionist_date"],
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="perinatal_resident_date"],
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="laboratory_rotation_date"],
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="cancer_rotation_date"],
+.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="out_of_office_date"] {
   background-image: url('/calendar.svg');
 }
 
