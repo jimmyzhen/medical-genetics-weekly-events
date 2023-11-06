@@ -26,7 +26,6 @@ const OnCallServiceStaff = {
         { lastname: 'Null', firstname: 'Elizabeth' },
     ],
     ertProvider: [
-        { lastname: 'Bernal', firstname: 'Holly' },
         { lastname: 'Bachir', firstname: 'Suha' },
         { lastname: 'Bernstein', firstname: 'Jon' },
         { lastname: 'Enns', firstname: 'Gregory' },
@@ -37,6 +36,7 @@ const OnCallServiceStaff = {
         { lastname: 'Niehaus', firstname: 'Annie' },
         { lastname: 'Stevenson', firstname: 'David' },
         { lastname: 'Tise', firstname: 'Christy' },
+        { lastname: 'Bernal', firstname: 'Holly' },
     ],
     nutritionists: [
         { lastname: 'Bell', firstname: 'Lauren' },
