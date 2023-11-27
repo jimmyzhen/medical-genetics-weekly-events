@@ -86,7 +86,6 @@ function SingleDatePicker({ singleStartDate, setSingleStartDate, onCallService }
             className={styles['form-field']}
             placeholderText="Select a date"
             dateFormat="MMM d"
-            required={true}
         />
     );
 }
