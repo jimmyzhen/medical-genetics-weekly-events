@@ -1,9 +1,27 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
+import PreviewEventWeekday from './preview_components/previewEventWeekday';
+import PreviewOnCallSchedule from './preview_components/previewOnCallSchedule';
 import styles from './PreviewEmail.module.css';
+
+const weekdays = [
+    {day: 'monday', label: 'Monday'},
+    {day: 'tuesday', label: 'Tuesday'},
+    {day: 'wednesday', label: 'Wednesday'},
+    {day: 'thursday', label: 'Thursday'},
+    {day: 'friday', label: 'Friday'},
+];
 
 export default function PreviewEmail({ eventWeek }) {
     const eventInfo = eventWeek.data;
+
+    if (!eventInfo || eventInfo === undefined || Object.keys(eventInfo).length === 0) {
+        return (
+            <div className={styles['preview-container']}>
+                <p>Unable to retrieve event information. Please try again later.</p>
+            </div>
+        );
+    }
 
     return (
         <div className={styles['preview-container']}>
@@ -40,32 +58,40 @@ export default function PreviewEmail({ eventWeek }) {
             <table bgcolor="#eeeeee" width="100%" border={0} cellSpacing={0} cellPadding={0} className="em_full_wrap" style={{tableLayout: 'fixed', backgroundColor: '#eeeeee'}}>
                 <tbody><tr>
                     <td align="center" valign="top">
-                    <table align="center" width={650} bgcolor="#ffffff" border={0} cellSpacing={0} cellPadding={0} className="em_main_table" style={{width: 650, tableLayout: 'fixed', backgroundColor: '#ffffff'}}>
-                        <tbody><tr>
-                            <td align="center" valign="top" style={{padding: '0 40px'}}>
-                            <table align="center" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                <tbody><tr>
-                                    <td align="center" valign="top" style={{padding: '0 0 30px 0'}}>
-                                    <span style={{color: '#5F574F', fontSize: 22, fontWeight: 700}}>
-                                        Week of {eventInfo && eventInfo.week}
-                                    </span>
-                                    </td>
-                                </tr>
+                        <table align="center" width={650} bgcolor="#ffffff" border={0} cellSpacing={0} cellPadding={0} className="em_main_table" style={{width: 650, tableLayout: 'fixed', backgroundColor: '#ffffff'}}>
+                            <tbody>
                                 <tr>
-                                    <td align="center" valign="top" style={{padding: '0 0 20px 0'}}>
-                                    <table align="center" width="100%" border={0} cellSpacing={0} cellPadding={0} style={{borderCollapse: 'collapse', borderRadius: 24, overflow: 'hidden'}}>
-                                        <tbody><tr>
-                                            <td className="em_announcement">
-                                            <span>🎉🎂🥳 Happy Birthday to Devon on Wednesday, June 28!</span>
-                                            </td>
-                                        </tr>
-                                        </tbody></table>
+                                    <td align="center" valign="top" style={{padding: '0 40px'}}>
+                                        <table align="center" width="100%" border={0} cellSpacing={0} cellPadding={0}>
+                                            <tbody>
+                                                <tr>
+                                                    <td align="center" valign="top" style={{padding: '0 0 30px 0'}}>
+                                                    <span style={{color: '#5F574F', fontSize: 22, fontWeight: 700}}>
+                                                        Week of {eventInfo.week}
+                                                    </span>
+                                                    </td>
+                                                </tr>
+                                                {eventInfo.announcement && eventInfo.announcement.length > 0 && (
+                                                    <tr>
+                                                        <td align="center" valign="top" style={{padding: '0 0 20px 0'}}>
+                                                            <table align="center" width="100%" border={0} cellSpacing={0} cellPadding={0} style={{borderCollapse: 'collapse', borderRadius: 24, overflow: 'hidden'}}>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td className="em_announcement">
+                                                                        <span>{eventInfo.announcement}</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
                                     </td>
                                 </tr>
-                                </tbody></table>
-                            </td>
-                        </tr>
-                        </tbody></table>
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
                 </tbody></table>
@@ -95,114 +121,33 @@ export default function PreviewEmail({ eventWeek }) {
                                         </tr>
                                         <tr>
                                             <td className="em_section_table" align="left" valign="top">
-                                            <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                <tbody><tr>
-                                                    <td align="left" valign="top" className="em_section_table_event_by_day">
-                                                    <div className="em_section_table_event_day">
-                                                        <i className="fa-solid fa-calendar-days em_section_table_event_day_icon" />{`Monday, ${eventInfo && eventInfo['monday-date']}`}
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            <i className="fa-solid fa-clock em_section_table_event_time_icon" />1:15 pm
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_event_detail">
-                                                            Metabolomic Meeting<a href="https://stanford.zoom.us/j/99144985749?pwd=UmI0dENSNzhxMWZkakdiNmpzK2l6Zz09" className="em_zoom_meeting_link">Join Zoom Meeting</a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            <i className="fa-solid fa-clock em_section_table_event_time_icon" />3:00 pm
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_event_detail">
-                                                            Medical Genetics Division Faculty Meeting. Waxwing Conference Room 449 and Zoom<a href=" https://stanford.zoom.us/j/99140126087?pwd=SjJTTURieHBGY01GazR5YmZhc3Fidz09" className="em_zoom_meeting_link">Join Zoom Meeting</a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            <i className="fa-solid fa-clock em_section_table_event_time_icon" />5:00 pm
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_event_detail">
-                                                            FPO Operations &amp; Quality Meeting. (Zoom: TBA)
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_event_by_day">
-                                                    <div className="em_section_table_event_day">
-                                                        <i className="fa-solid fa-calendar-days em_section_table_event_day_icon" />Tuesday, June 27
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            No event
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_event_detail">
-                                                            &nbsp;
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_event_by_day">
-                                                    <div className="em_section_table_event_day">
-                                                        <i className="fa-solid fa-calendar-days em_section_table_event_day_icon" />Wednesday, June 28
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            No event
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_event_detail">
-                                                            &nbsp;
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_event_by_day">
-                                                    <div className="em_section_table_event_day">
-                                                        <i className="fa-solid fa-calendar-days em_section_table_event_day_icon" />Thursday, June 29
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            <i className="fa-solid fa-clock em_section_table_event_time_icon" />12:30 pm
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_event_detail">
-                                                            Perinatal Genetics Conference<a href="https://stanfordchildrens.zoom.us/j/91927213522?pwd=UmsyeHNNN2pwL2tCZ2VnRDJGNVkyZz0" className="em_zoom_meeting_link">Join Zoom Meeting</a>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_event_by_day">
-                                                    <div className="em_section_table_event_day">
-                                                        <i className="fa-solid fa-calendar-days em_section_table_event_day_icon" />Friday, June 30
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_detail" colSpan={2}>
-                                                            <strong>NO Pediatric Grand Rounds - will resume on Sept 05, 2023</strong>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            <i className="fa-solid fa-clock em_section_table_event_time_icon" />9:00 am
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_event_detail">
-                                                            Medical Genetics Case Conference - CAM Grand Rounds Conference Room and Zoom<a href="https://stanford.zoom.us/j/97921227359?pwd=NHgyVE1BZ28yZFp1SnBoa0FJdEliUT09" className="em_zoom_meeting_link">Join Zoom Meeting</a>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                                </tbody></table>
+                                                <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
+                                                    <tbody>
+                                                        {weekdays.map((weekday, index) => {
+                                                            return (
+                                                                <tr key={`${weekday}-${index}`}>
+                                                                    <td align="left" valign="top" className="em_section_table_event_by_day">
+                                                                        <PreviewEventWeekday
+                                                                            weekday={weekday.day}
+                                                                            weekdayLabel={weekday.label}
+                                                                            date={eventInfo[`${weekday.day}_date`]}
+                                                                            weekdayAnnouncement={eventInfo[`${weekday.day}_event_announcement`]}
+                                                                            event_time_0={eventInfo[`${weekday.day}_event_time_0`]}
+                                                                            event_title_0={eventInfo[`${weekday.day}_event_title_0`]}
+                                                                            event_zoom_0={eventInfo[`${weekday.day}_event_zoom_0`]}
+                                                                            event_time_1={eventInfo[`${weekday.day}_event_time_1`]}
+                                                                            event_title_1={eventInfo[`${weekday.day}_event_title_1`]}
+                                                                            event_zoom_1={eventInfo[`${weekday.day}_event_zoom_1`]}
+                                                                            event_time_2={eventInfo[`${weekday.day}_event_time_2`]}
+                                                                            event_title_2={eventInfo[`${weekday.day}_event_title_2`]}
+                                                                            event_zoom_2={eventInfo[`${weekday.day}_event_zoom_2`]}
+                                                                        />
+                                                                    </td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                </table>
                                             </td>
                                         </tr>
                                         </tbody></table>
@@ -242,74 +187,41 @@ export default function PreviewEmail({ eventWeek }) {
                                         <tr>
                                             <td className="em_section_table" align="left" valign="top">
                                             <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                <tbody><tr>
+                                                <tbody>
+                                                <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Medical Genetics Service
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 23 - June 29
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Attending - Dr. Christy Tise</p>
-                                                            <p>Resident - Dr. Emily Dunn</p>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="Medical Genetics Service"
+                                                            onCallService="medical_genetics_service"
+                                                            serviceDate={eventInfo.medical_genetics_service_date}
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Perinatal Genetics
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 23 - June 29
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Attending - Dr. Melanie Manning</p>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="Perinatal Genetics"
+                                                            onCallService="perinatal_genetics"
+                                                            serviceDate={eventInfo.perinatal_genetics_date}
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Biochemical Genetics
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 23 - June 29
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Attending - Dr. Christy Tise</p>
-                                                            <p>Resident - Dr. Emily Dunn</p>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="Biochemical Genetics"
+                                                            onCallService="biochemical_genetics"
+                                                            serviceDate={eventInfo.biochemical_genetics_date}
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />ERT
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 23 - June 29
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Nurse Practitioner - Holly Bernal</p>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="ERT"
+                                                            onCallService="ert"
+                                                            serviceDate={eventInfo.ert_date}
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
