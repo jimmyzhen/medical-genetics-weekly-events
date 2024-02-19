@@ -51,6 +51,7 @@ function OnCallService({ title, onCallService }) {
                             selected={attendingPhysician}
                             minLength={2}
                             ref={attendingPhysiciansRef}
+                            inputProps={{name: `${onCallService}_attending`}}
                         />
                     </td>
                     <td>
@@ -63,6 +64,7 @@ function OnCallService({ title, onCallService }) {
                             selected={resident}
                             minLength={2}
                             ref={residentsRef}
+                            inputProps={{name: `${onCallService}_resident`}}
                         />
                     </td>
                 </tr>

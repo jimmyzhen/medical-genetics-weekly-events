@@ -40,6 +40,7 @@ function OnCallServiceNoDate({
                                 minLength={2}
                                 multiple={multiSelect}
                                 ref={onCallNamesRef}
+                                inputProps={{name: `${onCallService}_${role}`}}
                             />
                         </td>
                     </tr>
