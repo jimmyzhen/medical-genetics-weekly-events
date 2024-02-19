@@ -43,7 +43,7 @@ export default function PreviewEmail({ eventWeek }) {
                             <table align="center" border={0} cellSpacing={0} cellPadding={0}>
                                 <tbody><tr>
                                     <td align="center" valign="top" bgcolor="#ffffff">
-                                    <img src="https://drive.google.com/uc?id=1lsYkjkFVhXEKqKSwwnpBWvRX6C3KMKcE" alt="The Division of Medical Genetics" border={0} height={49} width={420} style={{maxWidth: 420}} />
+                                    <img src="/som-division-medical-genetics-logo.png" alt="The Division of Medical Genetics" border={0} height={49} width={420} style={{maxWidth: 420}} />
                                     </td>
                                 </tr>
                                 </tbody></table>

@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <>
       <footer className={styles.footer}>
-        <img src="https://drive.google.com/uc?id=1lsYkjkFVhXEKqKSwwnpBWvRX6C3KMKcE" alt="Medical Genetics Logo" className={styles.logo} />
+        <img src="/som-division-medical-genetics-logo.png" alt="Medical Genetics Logo" className={styles.logo} />
       </footer>
     </>
   )
