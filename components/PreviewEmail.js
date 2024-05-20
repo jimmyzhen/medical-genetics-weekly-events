@@ -194,6 +194,8 @@ export default function PreviewEmail({ eventWeek }) {
                                                             serviceTitle="Medical Genetics Service"
                                                             onCallService="medical_genetics_service"
                                                             serviceDate={eventInfo.medical_genetics_service_date}
+                                                            attending={eventInfo.medical_genetics_service_attending}
+                                                            resident={eventInfo.medical_genetics_service_resident}
                                                         />
                                                     </td>
                                                 </tr>
@@ -203,6 +205,8 @@ export default function PreviewEmail({ eventWeek }) {
                                                             serviceTitle="Perinatal Genetics"
                                                             onCallService="perinatal_genetics"
                                                             serviceDate={eventInfo.perinatal_genetics_date}
+                                                            attending={eventInfo.perinatal_genetics_attending}
+                                                            resident={eventInfo.perinatal_genetics_resident}
                                                         />
                                                     </td>
                                                 </tr>
@@ -212,6 +216,8 @@ export default function PreviewEmail({ eventWeek }) {
                                                             serviceTitle="Biochemical Genetics"
                                                             onCallService="biochemical_genetics"
                                                             serviceDate={eventInfo.biochemical_genetics_date}
+                                                            attending={eventInfo.biochemical_genetics_attending}
+                                                            resident={eventInfo.biochemical_genetics_resident}
                                                         />
                                                     </td>
                                                 </tr>
@@ -221,6 +227,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                             serviceTitle="ERT"
                                                             onCallService="ert"
                                                             serviceDate={eventInfo.ert_date}
+                                                            provider={eventInfo.ert_provider}
                                                         />
                                                     </td>
                                                 </tr>
@@ -283,6 +290,12 @@ export default function PreviewEmail({ eventWeek }) {
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="Genetic Counselor"
+                                                            onCallService="genetic_counselor"
+                                                            serviceDate={eventInfo.genetic_counselor_date}
+                                                            provider={eventInfo.genetic_counselor_genetic_counselor}
+                                                        />
                                                     <div className="em_section_table_oncall_service">
                                                         <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Genetic Counselor
                                                     </div>
@@ -308,76 +321,61 @@ export default function PreviewEmail({ eventWeek }) {
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Residents in Clinic
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail" colSpan={2}>
-                                                            Dr. Lekha Chilakamarri, Dr. Emily Dunn, Dr. Reva Frankel, Dr. Laura Keehan, Dr. Daniel Luz, Dr. Juan Ramos, Dr. Anuja Sule, Dr. Shawn Tahata, Dr. Kajal Verna
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="Residents in Clinic"
+                                                            onCallService="residents_in_clinic"
+                                                            resident={eventInfo.residents_in_clinic_residents_in_clinic}
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Perinatal (Resident)
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="Perinatal (Resident)"
+                                                            onCallService="perinatal_resident"
+                                                            serviceDate={eventInfo.perinatal_resident_date}
+                                                            resident={eventInfo.perinatal_resident_perinatal_resident}
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Laboratory Rotation
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="Laboratory Rotation"
+                                                            onCallService="laboratory_rotation"
+                                                            serviceDate={eventInfo.laboratory_rotation_date}
+                                                            resident={eventInfo.laboratory_rotation_laboratory_rotation}
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Cancer Rotation
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="Cancer Rotation"
+                                                            onCallService="laboratory_rotation"
+                                                            serviceDate={eventInfo.cancer_rotation_date}
+                                                            resident={eventInfo.cancer_rotation_cancer_rotation}
+                                                        />
                                                     </td>
                                                 </tr>
-                                                </tbody></table>
+                                                </tbody>
+                                            </table>
                                             </td>
                                         </tr>
-                                        </tbody></table>
+                                        </tbody>
+                                    </table>
                                     </td>
                                 </tr>
-                                </tbody></table>
+                                </tbody>
+                            </table>
                             </td>
                         </tr>
-                        </tbody></table>
+                        </tbody>
+                    </table>
                     </td>
                 </tr>
-                </tbody></table>
+                </tbody>
+            </table>
             {/* == //OnCallSchedule_Section == */}
             {/* == OutOfOffice_Section == */}
             <table bgcolor="#eeeeee" width="100%" border={0} cellSpacing={0} cellPadding={0} className="em_full_wrap" style={{tableLayout: 'fixed', backgroundColor: '#eeeeee'}}>
