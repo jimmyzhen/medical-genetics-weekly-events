@@ -123,7 +123,7 @@ export default function FeedbackForm() {
     <OnCallServiceNoDate
       title="Residents in Clinic"
       onCallService="residents_in_clinic"
-      role="residents_in_clinic"
+      role="residents"
       roleLabel="Residents"
       names={OnCallServiceStaff.residents}
       multiSelect={true}
@@ -134,7 +134,7 @@ export default function FeedbackForm() {
     <OnCallServiceMultiSelect
       title="Perinatal (Resident)"
       onCallService="perinatal_resident"
-      role="perinatal_resident"
+      role="resident"
       roleLabel="Resident"
       names={OnCallServiceStaff.residents}
       multiSelect={false}
@@ -145,7 +145,7 @@ export default function FeedbackForm() {
     <OnCallServiceMultiSelect
       title="Laboratory Rotation"
       onCallService="laboratory_rotation"
-      role="laboratory_rotation"
+      role="resident"
       roleLabel="Resident"
       names={OnCallServiceStaff.residents}
       multiSelect={false}
@@ -156,7 +156,7 @@ export default function FeedbackForm() {
     <OnCallServiceMultiSelect
       title="Cancer Rotation"
       onCallService="cancer_rotation"
-      role="cancer_rotation"
+      role="resident"
       roleLabel="Resident"
       names={OnCallServiceStaff.residents}
       multiSelect={false}
