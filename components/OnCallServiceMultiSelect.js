@@ -51,6 +51,7 @@ function OnCallServiceMultiSelect({
                                 placeholder={placeholder}
                                 multiSelect={multiSelect}
                                 hasDateRange={hasDateRange}
+                                index={index}
                             />
                         );
                     })}

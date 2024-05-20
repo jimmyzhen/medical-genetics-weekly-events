@@ -42,6 +42,7 @@ function OnCallServiceNoDate({
                                 ref={onCallNamesRef}
                                 inputProps={{name: `${onCallService}_${role}`}}
                             />
+                            <input type="hidden" name={`${onCallService}_${role}_value`} value={JSON.stringify(onCallNames)} />
                         </td>
                     </tr>
                 </tbody>

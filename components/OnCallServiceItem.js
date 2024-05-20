@@ -11,7 +11,8 @@ function OnCallServiceItem({
     role,
     placeholder,
     multiSelect,
-    hasDateRange
+    hasDateRange,
+    index,
 }) {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
@@ -26,7 +27,7 @@ function OnCallServiceItem({
                 <td className={styles['col-date-range-select']}>
                     <input
                         type="checkbox"
-                        name={`${onCallService}_date_range_select`}
+                        name={`${onCallService}_date_range_select_${index}`}
                         onChange={() => setIsChecked((prev) => !prev)}
                         checked={isChecked}
                     />
@@ -39,6 +40,7 @@ function OnCallServiceItem({
                         endDate={endDate}
                         onCallService={onCallService}
                         setDateRange={setDateRange}
+                        index={index}
                     />
                 )}
                 {hasDateRange && isChecked && (
@@ -47,6 +49,7 @@ function OnCallServiceItem({
                         endDate={endDate}
                         onCallService={onCallService}
                         setDateRange={setDateRange}
+                        index={index}
                     />
                 )}
                 {hasDateRange && !isChecked && (
@@ -54,6 +57,7 @@ function OnCallServiceItem({
                         singleStartDate={singleStartDate}
                         onCallService={onCallService}
                         setSingleStartDate={setSingleStartDate}
+                        index={index}
                     />
                 )}
             </td>
@@ -68,8 +72,9 @@ function OnCallServiceItem({
                     minLength={2}
                     multiple={multiSelect}
                     ref={onCallNamesRef}
-                    inputProps={{name: `${onCallService}_${role}`}}
+                    inputProps={{name: `${onCallService}_${role}_${index}`}}
                 />
+                <input type="hidden" name={`${onCallService}_${role}_${index}_value`} value={onCallNames} />
             </td>
         </tr>
     );
@@ -77,11 +82,11 @@ function OnCallServiceItem({
 
 export default OnCallServiceItem;
 
-function SingleDatePicker({ singleStartDate, setSingleStartDate, onCallService }) {
+function SingleDatePicker({ singleStartDate, setSingleStartDate, onCallService, index }) {
     return (
         <DatePicker
             id={`${onCallService}_date`}
-            name={`${onCallService}_date`}
+            name={`${onCallService}_date_${index}`}
             selected={singleStartDate}
             onChange={(date) => setSingleStartDate(date)}
             className={styles['form-field']}
@@ -91,10 +96,10 @@ function SingleDatePicker({ singleStartDate, setSingleStartDate, onCallService }
     );
 }
 
-function DateRangePicker({ startDate, endDate, setDateRange, onCallService }) {
+function DateRangePicker({ startDate, endDate, setDateRange, onCallService, index }) {
     return (
         <DatePicker
-            name={`${onCallService}_date`}
+            name={`${onCallService}_date_${index}`}
             selectsRange={true}
             startDate={startDate}
             endDate={endDate}
