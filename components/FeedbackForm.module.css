@@ -15,7 +15,11 @@
   margin-left: 5px;
 }
 
-.col-date-time {
+.col-date-time__time-select {
+  width: 18%;
+}
+
+.col-date-time__date-select {
   width: 18%;
 }
 
