@@ -22,14 +22,14 @@ function OnCallService({ title, onCallService }) {
             <table className={styles.table}>
                 <thead>
                 <tr>
-                    <th className={styles['col-date-time']}>Dates</th>
+                    <th className={styles['col-date-time__date-select']}>Dates</th>
                     <th>Attending</th>
                     <th>Resident</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td className={styles['col-date-time']}>
+                    <td className={styles['col-date-time__date-select']}>
                     <DatePicker
                         name={`${onCallService}_date`}
                         selectsRange={true}

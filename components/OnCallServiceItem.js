@@ -33,7 +33,7 @@ function OnCallServiceItem({
                     />
                 </td>
             )}
-            <td className={styles['col-date-time']}>
+            <td className={styles['col-date-time__date-select']}>
                 {!hasDateRange && (
                     <DateRangePicker
                         startDate={startDate}
