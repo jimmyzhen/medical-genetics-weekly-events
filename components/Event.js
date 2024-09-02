@@ -9,7 +9,7 @@ function Event({ eventDate, dayPrefix, event, index}) {
     
     return (
         <tr>
-            <td className={styles['col-date-time']}>
+            <td className={styles['col-date-time__time-select']}>
                 <DatePicker
                     name={`${dayPrefix}_event_time_${index}`}
                     selected={eventSchedule}

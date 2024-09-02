@@ -26,7 +26,7 @@ function OnCallServiceMultiSelect({
                     {hasDateRange && (
                         <th>Date Range</th>
                     )}
-                    <th className={styles['col-date-time']}>Dates</th>
+                    <th className={styles['col-date-time__date-select']}>Dates</th>
                     <th>{roleLabel}</th>
                 </tr>
                 </thead>
