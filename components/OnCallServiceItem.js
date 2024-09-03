@@ -74,7 +74,7 @@ function OnCallServiceItem({
                     ref={onCallNamesRef}
                     inputProps={{name: `${onCallService}_${role}_${index}`}}
                 />
-                <input type="hidden" name={`${onCallService}_${role}_${index}_value`} value={onCallNames} />
+                <input type="hidden" name={`${onCallService}_${role}_${index}_value`} value={JSON.stringify(onCallNames)} />
             </td>
         </tr>
     );
