@@ -2,6 +2,7 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import PreviewEventWeekday from './preview_components/previewEventWeekday';
 import PreviewOnCallSchedule from './preview_components/previewOnCallSchedule';
+import PreviewOutOfOffice from './preview_components/previewOutOfOffice';
 import styles from './PreviewEmail.module.css';
 
 const weekdays = [
@@ -38,13 +39,35 @@ export default function PreviewEmail({ eventWeek }) {
         for (let i = 0; i < 7; i++) {
             nutritionists.push(eventInfo[`nutritionist_nutritionist_${i}_value`]);
         }
-
         // parse JSON array of arrays
         nutritionists.forEach((nutritionist, index) => {
             nutritionists[index] = JSON.parse(nutritionist);
         });
 
         return nutritionists;
+    }
+
+    // collect all out-of-office dates in an array
+    function setOutOfOfficeDates() {
+        const outOfOfficeDDates = [];
+        for (let i = 0; i < 5; i++) {
+            outOfOfficeDDates.push(eventInfo[`out_of_office_date_${i}`]);
+        }
+        return outOfOfficeDDates;
+    }
+
+    // collect all out-of-office names arrays in an array
+    function setOutOfOffcieNames() {
+        const outOfOffcieNames = [];
+        for (let i = 0; i < 5; i++) {
+            outOfOffcieNames.push(eventInfo[`out_of_office_anyone_${i}_value`]);
+        }
+        // parse JSON array of arrays
+        outOfOffcieNames.forEach((name, index) => {
+            outOfOffcieNames[index] = JSON.parse(name);
+        });
+
+        return outOfOffcieNames;
     }
 
     return (
@@ -359,50 +382,10 @@ export default function PreviewEmail({ eventWeek }) {
                                         </tr>
                                         <tr>
                                             <td className="em_section_table" align="left" valign="top">
-                                            <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                <tbody><tr>
-                                                    <td align="left" valign="top" className="em_section_table_ooo_by_day">
-                                                    <div className="em_section_table_event_day">
-                                                        <i className="fa-solid fa-calendar-days em_section_table_event_day_icon" />June 26 - June 30
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            Brooke (leave)
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_ooo_by_day">
-                                                    <div className="em_section_table_event_day">
-                                                        <i className="fa-solid fa-calendar-days em_section_table_event_day_icon" />June 26
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            Wesley
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_ooo_by_day">
-                                                    <div className="em_section_table_event_day">
-                                                        <i className="fa-solid fa-calendar-days em_section_table_event_day_icon" />June 30
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_event_time">
-                                                            Devon
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                                </tbody></table>
+                                                <PreviewOutOfOffice
+                                                    dates={setOutOfOfficeDates()}
+                                                    names={setOutOfOffcieNames()}
+                                                />
                                             </td>
                                         </tr>
                                         </tbody></table>
