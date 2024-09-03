@@ -18,7 +18,7 @@
     "export": "next export"
   },
   "dependencies": {
-    "@netlify/plugin-nextjs": "^5.7.0",
+    "@netlify/plugin-nextjs": "4",
     "axios": "^1.6.0",
     "cypress": "^13.6.4",
     "dayjs": "^1.11.9",
