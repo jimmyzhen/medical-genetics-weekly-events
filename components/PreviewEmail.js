@@ -23,6 +23,30 @@ export default function PreviewEmail({ eventWeek }) {
         );
     }
 
+    // collect all nutritionist dates in an array
+    function setNutritionistDates() {
+        const nutritionistDates = [];
+        for (let i = 0; i < 7; i++) {
+            nutritionistDates.push(eventInfo[`nutritionist_date_${i}`]);
+        }
+        return nutritionistDates;
+    }
+
+    // collect all nutritionist arrays in an array
+    function setNutritionists() {
+        const nutritionists = [];
+        for (let i = 0; i < 7; i++) {
+            nutritionists.push(eventInfo[`nutritionist_nutritionist_${i}_value`]);
+        }
+
+        // parse JSON array of arrays
+        nutritionists.forEach((nutritionist, index) => {
+            nutritionists[index] = JSON.parse(nutritionist);
+        });
+
+        return nutritionists;
+    }
+
     return (
         <div className={styles['preview-container']}>
             {/* == Header Section == */}
@@ -226,66 +250,20 @@ export default function PreviewEmail({ eventWeek }) {
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="ERT"
                                                             onCallService="ert"
-                                                            serviceDate={eventInfo.ert_date}
-                                                            provider={eventInfo.ert_provider}
+                                                            serviceDate={eventInfo.ert_date_0}
+                                                            provider={eventInfo.ert_provider_0}
                                                         />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Nutitionist
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 23
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Lauren/Tope</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 24 - June 25
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Jodi</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 26
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Jodi</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 27
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Jodi/Lauren</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 28
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Jodi/Lauren/Tope</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 29
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>Tope</p>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                        <PreviewOnCallSchedule
+                                                            serviceTitle="Nutritionist"
+                                                            onCallService="nutritionist"
+                                                            serviceDate={setNutritionistDates()}
+                                                            provider={setNutritionists()}
+                                                        />
+                                                    
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -293,30 +271,9 @@ export default function PreviewEmail({ eventWeek }) {
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Genetic Counselor"
                                                             onCallService="genetic_counselor"
-                                                            serviceDate={eventInfo.genetic_counselor_date}
-                                                            provider={eventInfo.genetic_counselor_genetic_counselor}
+                                                            serviceDate={[eventInfo.genetic_counselor_date_0, eventInfo.genetic_counselor_date_1]}
+                                                            provider={[eventInfo.genetic_counselor_genetic_counselor_0, eventInfo.genetic_counselor_genetic_counselor_1]}
                                                         />
-                                                    <div className="em_section_table_oncall_service">
-                                                        <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />Genetic Counselor
-                                                    </div>
-                                                    <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
-                                                        <tbody><tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 19 - June 23
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>GC - Ellyn Farrelly</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_date">
-                                                            <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon" />June 26 - June 30
-                                                            </td>
-                                                            <td align="left" valign="top" className="em_section_table_oncall_detail">
-                                                            <p>GC - Emma Smith</p>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -324,7 +281,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Residents in Clinic"
                                                             onCallService="residents_in_clinic"
-                                                            resident={eventInfo.residents_in_clinic_residents_in_clinic}
+                                                            resident={eventInfo.residents_in_clinic_residents_value}
                                                         />
                                                     </td>
                                                 </tr>
@@ -333,8 +290,8 @@ export default function PreviewEmail({ eventWeek }) {
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Perinatal (Resident)"
                                                             onCallService="perinatal_resident"
-                                                            serviceDate={eventInfo.perinatal_resident_date}
-                                                            resident={eventInfo.perinatal_resident_perinatal_resident}
+                                                            serviceDate={eventInfo.perinatal_resident_date_0}
+                                                            resident={eventInfo.perinatal_resident_perinatal_resident_0}
                                                         />
                                                     </td>
                                                 </tr>
@@ -343,8 +300,8 @@ export default function PreviewEmail({ eventWeek }) {
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Laboratory Rotation"
                                                             onCallService="laboratory_rotation"
-                                                            serviceDate={eventInfo.laboratory_rotation_date}
-                                                            resident={eventInfo.laboratory_rotation_laboratory_rotation}
+                                                            serviceDate={eventInfo.laboratory_rotation_date_0}
+                                                            resident={eventInfo.laboratory_rotation_laboratory_rotation_0}
                                                         />
                                                     </td>
                                                 </tr>
@@ -353,8 +310,8 @@ export default function PreviewEmail({ eventWeek }) {
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Cancer Rotation"
                                                             onCallService="laboratory_rotation"
-                                                            serviceDate={eventInfo.cancer_rotation_date}
-                                                            resident={eventInfo.cancer_rotation_cancer_rotation}
+                                                            serviceDate={eventInfo.cancer_rotation_date_0}
+                                                            resident={eventInfo.cancer_rotation_cancer_rotation_0}
                                                         />
                                                     </td>
                                                 </tr>

@@ -39,6 +39,7 @@ function OnCallServiceMultiSelect({
                             placeholder={placeholder}
                             multiSelect={multiSelect}
                             hasDateRange={hasDateRange}
+                            index={0}
                         />
                     )}
                     {entries && entries.map((entry, index) => {
