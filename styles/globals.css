@@ -38,7 +38,7 @@ hr {
   padding: 13px 20px !important;
 }
 
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input {
+.FeedbackForm_col-date-time__time-select__nUjim .react-datepicker__input-container input {
   background-image: url('/time.svg');
   background-repeat: no-repeat;
   background-position: right 15px center;
@@ -47,35 +47,23 @@ hr {
   padding: 13px 20px !important;
 }
 
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="medical_genetics_service_date"],
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="perinatal_genetics_date"] ,
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="biochemical_genetics_date"],
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="ert_date"],
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="genetic_counselor_date"],
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="nutritionist_date"],
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="perinatal_resident_date"],
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="laboratory_rotation_date"],
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="cancer_rotation_date"],
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__input-container input[name="out_of_office_date"] {
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="medical_genetics_service_date"],
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="perinatal_genetics_date"] ,
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="biochemical_genetics_date"],
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="ert_date"],
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="genetic_counselor_date"],
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="nutritionist_date"],
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="perinatal_resident_date"],
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="laboratory_rotation_date"],
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="cancer_rotation_date"],
+.FeedbackForm_col-date-time__date-select__3hmwz .react-datepicker__input-container input[name="out_of_office_date"] {
   background-image: url('/calendar.svg');
 }
 
 .react-datepicker-popper[data-placement^="bottom"] {
   inset: -15px auto auto 0 !important;
   padding-top: 0;
-}
-
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker-popper[data-placement^="bottom"] {
-  inset: -5px auto auto 0 !important;
-  padding-top: 0;
-}
-
-.react-datepicker__triangle {
-  transform: translate3d(120px, 0px, 0px) !important;
-}
-
-.FeedbackForm_col-date-time__ah6S9 .react-datepicker__triangle {
-  transform: translate3d(46px, 0px, 0px) !important;
+  z-index: 2;
 }
 
 .rbt {
