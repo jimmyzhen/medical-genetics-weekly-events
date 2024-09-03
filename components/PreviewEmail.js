@@ -314,7 +314,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                             serviceTitle="Perinatal (Resident)"
                                                             onCallService="perinatal_resident"
                                                             serviceDate={eventInfo.perinatal_resident_date_0}
-                                                            resident={eventInfo.perinatal_resident_perinatal_resident_0}
+                                                            resident={eventInfo.perinatal_resident_resident_0}
                                                         />
                                                     </td>
                                                 </tr>
@@ -324,7 +324,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                             serviceTitle="Laboratory Rotation"
                                                             onCallService="laboratory_rotation"
                                                             serviceDate={eventInfo.laboratory_rotation_date_0}
-                                                            resident={eventInfo.laboratory_rotation_laboratory_rotation_0}
+                                                            resident={eventInfo.laboratory_rotation_resident_0}
                                                         />
                                                     </td>
                                                 </tr>
@@ -332,9 +332,9 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Cancer Rotation"
-                                                            onCallService="laboratory_rotation"
+                                                            onCallService="cancer_rotation"
                                                             serviceDate={eventInfo.cancer_rotation_date_0}
-                                                            resident={eventInfo.cancer_rotation_cancer_rotation_0}
+                                                            resident={eventInfo.cancer_rotation_resident_0}
                                                         />
                                                     </td>
                                                 </tr>

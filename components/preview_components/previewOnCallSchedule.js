@@ -72,6 +72,7 @@ function PreviewOnCallSchedule({
                                     {attending && resident ? `, Dr. ${resident}` : ''}
                                     {provider && onCallService === 'ert' ? `Nurse Practitioner - ${provider}` : ''}
                                     {!serviceDate && !attending && resident ? formatResident() : ''}
+                                    {onCallService === 'perinatal_resident' || onCallService === 'laboratory_rotation' || onCallService === 'cancer_rotation'  ? resident : ''}
                                 </p>
                             </td>
                         </tr>
