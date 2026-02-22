@@ -113,7 +113,7 @@ export default function FeedbackForm() {
       onCallService="genetic_counselor"
       role="genetic_counselor"
       roleLabel="Genetic Counselor"
-      names={OnCallServiceStaff.geneticCogunselors}
+      names={OnCallServiceStaff.geneticCounselors}
       multiSelect={false}
       placeholder="Choose genetic counselor..."
       entries={OnCallServiceEntries.geneticCounselor}
@@ -171,7 +171,7 @@ export default function FeedbackForm() {
       onCallService="out_of_office"
       role="anyone"
       roleLabel="Names"
-      names={[...OnCallServiceStaff.ertProvider, ...OnCallServiceStaff.residents, ...OnCallServiceStaff.nutritionists, ...OnCallServiceStaff.geneticCogunselors]}
+      names={[...OnCallServiceStaff.ertProvider, ...OnCallServiceStaff.residents, ...OnCallServiceStaff.nutritionists, ...OnCallServiceStaff.geneticCounselors]}
       multiSelect={true}
       placeholder="Choose one or more names..."
       entries={OnCallServiceEntries.out_of_office}
