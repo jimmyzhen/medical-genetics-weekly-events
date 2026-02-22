@@ -1,20 +1,7 @@
-import React, { useState } from 'react';
-import dayjs from 'dayjs';
+import React from 'react';
+import mergeArrays from '../../utils/mergeArrays';
 
 function PreviewOutOfOffice({ dates, names }) {
-    // merge 2 arrays of equal length into an array of objects
-    function mergeArrays(arr1, arr2, key1 = 'key1', key2 = 'key2') {
-        if (arr1.length !== arr2.length) {
-            throw new Error('Arrays must be of equal length');
-        }
-
-        const trimmedArr1 = arr1.filter((value) => value.length);
-    
-        return trimmedArr1.map((value, index) => ({
-            [key1]: value,
-            [key2]: arr2[index]
-        }));
-    }
 
     let individuals = [];
     names = names.map((item) => {
