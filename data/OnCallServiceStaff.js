@@ -25,25 +25,15 @@ const OnCallServiceStaff = {
         { lastname: 'Rodriguez-Gil', firstname: 'Jorge' },
         { lastname: 'Null', firstname: 'Elizabeth' },
     ],
-    ertProvider: [
-        { lastname: 'Bachir', firstname: 'Suha' },
-        { lastname: 'Bernstein', firstname: 'Jon' },
-        { lastname: 'Enns', firstname: 'Gregory' },
-        { lastname: 'Gomez-Ospina', firstname: 'Natalia' },
-        { lastname: 'Lee', firstname: 'Chung' },
-        { lastname: 'Manning', firstname: 'Melanie' },
-        { lastname: 'Matalon', firstname: 'Dena' },
-        { lastname: 'Niehaus', firstname: 'Annie' },
-        { lastname: 'Stevenson', firstname: 'David' },
-        { lastname: 'Tise', firstname: 'Christy' },
-        { lastname: 'Bernal', firstname: 'Holly' },
-    ],
+    get ertProvider() {
+        return [...this.attendingPhysicians, { lastname: 'Bernal', firstname: 'Holly' }];
+    },
     nutritionists: [
         { lastname: 'Bell', firstname: 'Lauren' },
         { lastname: 'Pedro', firstname: 'Temitope' },
         { lastname: 'Wright', firstname: 'Jodi' },
     ],
-    geneticCogunselors: [
+    geneticCounselors: [
         { lastname: 'Bonner', firstname: 'Devon' },
         { lastname: 'Calderwood', firstname: 'Laurel' },
         { lastname: 'Chen', firstname: 'Kelly' },
