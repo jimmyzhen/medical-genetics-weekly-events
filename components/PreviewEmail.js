@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import dayjs from 'dayjs';
 import PreviewEventWeekday from './preview_components/previewEventWeekday';
 import PreviewOnCallSchedule from './preview_components/previewOnCallSchedule';
 import PreviewOutOfOffice from './preview_components/previewOutOfOffice';
+import OnCallServiceEntries from '../data/OnCallServiceEntries';
+import mergeArrays from '../utils/mergeArrays';
 import styles from './PreviewEmail.module.css';
 
 const weekdays = [
@@ -24,50 +24,60 @@ export default function PreviewEmail({ eventWeek }) {
         );
     }
 
-    // collect all nutritionist dates in an array
+    // Collect form entries by key pattern into an array
+    function collectFormEntries(prefix, count, { suffix = '', parseJson = false } = {}) {
+        const entries = [];
+        for (let i = 0; i < count; i++) {
+            entries.push(eventInfo[`${prefix}${i}${suffix}`]);
+        }
+        if (parseJson) {
+            return entries.map((entry) => JSON.parse(entry));
+        }
+        return entries;
+    }
+
+    const nutritionistCount = OnCallServiceEntries.nutritionist.length;
+    const outOfOfficeCount = OnCallServiceEntries.out_of_office.length;
+
     function setNutritionistDates() {
-        const nutritionistDates = [];
-        for (let i = 0; i < 7; i++) {
-            nutritionistDates.push(eventInfo[`nutritionist_date_${i}`]);
-        }
-        return nutritionistDates;
+        return collectFormEntries('nutritionist_date_', nutritionistCount);
     }
 
-    // collect all nutritionist arrays in an array
     function setNutritionists() {
-        const nutritionists = [];
-        for (let i = 0; i < 7; i++) {
-            nutritionists.push(eventInfo[`nutritionist_nutritionist_${i}_value`]);
-        }
-        // parse JSON array of arrays
-        nutritionists.forEach((nutritionist, index) => {
-            nutritionists[index] = JSON.parse(nutritionist);
-        });
-
-        return nutritionists;
+        return collectFormEntries('nutritionist_nutritionist_', nutritionistCount, { suffix: '_value', parseJson: true });
     }
 
-    // collect all out-of-office dates in an array
     function setOutOfOfficeDates() {
-        const outOfOfficeDDates = [];
-        for (let i = 0; i < 5; i++) {
-            outOfOfficeDDates.push(eventInfo[`out_of_office_date_${i}`]);
-        }
-        return outOfOfficeDDates;
+        return collectFormEntries('out_of_office_date_', outOfOfficeCount);
     }
 
-    // collect all out-of-office names arrays in an array
-    function setOutOfOffcieNames() {
-        const outOfOffcieNames = [];
-        for (let i = 0; i < 5; i++) {
-            outOfOffcieNames.push(eventInfo[`out_of_office_anyone_${i}_value`]);
-        }
-        // parse JSON array of arrays
-        outOfOffcieNames.forEach((name, index) => {
-            outOfOffcieNames[index] = JSON.parse(name);
-        });
+    function setOutOfOfficeNames() {
+        return collectFormEntries('out_of_office_anyone_', outOfOfficeCount, { suffix: '_value', parseJson: true });
+    }
 
-        return outOfOffcieNames;
+    // Normalize multi-entry services into { date, name } arrays for PreviewOnCallSchedule
+    function getNutritionistEntries() {
+        const dates = setNutritionistDates();
+        const names = setNutritionists().map((nutritionistArr) =>
+            nutritionistArr.map((n) => `${n.firstname} ${n.lastname}`).join(', ')
+        );
+        return mergeArrays(dates, names, 'date', 'name');
+    }
+
+    function getGeneticCounselorEntries() {
+        const gcCount = OnCallServiceEntries.geneticCounselor.length;
+        const dates = collectFormEntries('genetic_counselor_date_', gcCount);
+        const names = collectFormEntries('genetic_counselor_genetic_counselor_', gcCount);
+        return mergeArrays(dates, names, 'date', 'name').map(
+            (entry) => ({ ...entry, name: `GC - ${entry.name}` })
+        );
+    }
+
+    function formatResidentsInClinic() {
+        const raw = eventInfo.residents_in_clinic_residents_value;
+        if (!raw) return '';
+        const residents = JSON.parse(raw);
+        return residents.map((r) => `Dr. ${r.firstname} ${r.lastname}`).join(', ');
     }
 
     return (
@@ -179,15 +189,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                                             weekdayLabel={weekday.label}
                                                                             date={eventInfo[`${weekday.day}_date`]}
                                                                             weekdayAnnouncement={eventInfo[`${weekday.day}_event_announcement`]}
-                                                                            event_time_0={eventInfo[`${weekday.day}_event_time_0`]}
-                                                                            event_title_0={eventInfo[`${weekday.day}_event_title_0`]}
-                                                                            event_zoom_0={eventInfo[`${weekday.day}_event_zoom_0`]}
-                                                                            event_time_1={eventInfo[`${weekday.day}_event_time_1`]}
-                                                                            event_title_1={eventInfo[`${weekday.day}_event_title_1`]}
-                                                                            event_zoom_1={eventInfo[`${weekday.day}_event_zoom_1`]}
-                                                                            event_time_2={eventInfo[`${weekday.day}_event_time_2`]}
-                                                                            event_title_2={eventInfo[`${weekday.day}_event_title_2`]}
-                                                                            event_zoom_2={eventInfo[`${weekday.day}_event_zoom_2`]}
+                                                                            eventInfo={eventInfo}
                                                                         />
                                                                     </td>
                                                                 </tr>
@@ -239,10 +241,9 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Medical Genetics Service"
-                                                            onCallService="medical_genetics_service"
                                                             serviceDate={eventInfo.medical_genetics_service_date}
                                                             attending={eventInfo.medical_genetics_service_attending}
-                                                            resident={eventInfo.medical_genetics_service_resident}
+                                                            resident={`Dr. ${eventInfo.medical_genetics_service_resident}`}
                                                         />
                                                     </td>
                                                 </tr>
@@ -250,10 +251,9 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Perinatal Genetics"
-                                                            onCallService="perinatal_genetics"
                                                             serviceDate={eventInfo.perinatal_genetics_date}
                                                             attending={eventInfo.perinatal_genetics_attending}
-                                                            resident={eventInfo.perinatal_genetics_resident}
+                                                            resident={`Dr. ${eventInfo.perinatal_genetics_resident}`}
                                                         />
                                                     </td>
                                                 </tr>
@@ -261,10 +261,9 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Biochemical Genetics"
-                                                            onCallService="biochemical_genetics"
                                                             serviceDate={eventInfo.biochemical_genetics_date}
                                                             attending={eventInfo.biochemical_genetics_attending}
-                                                            resident={eventInfo.biochemical_genetics_resident}
+                                                            resident={`Dr. ${eventInfo.biochemical_genetics_resident}`}
                                                         />
                                                     </td>
                                                 </tr>
@@ -272,9 +271,8 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="ERT"
-                                                            onCallService="ert"
                                                             serviceDate={eventInfo.ert_date_0}
-                                                            provider={eventInfo.ert_provider_0}
+                                                            provider={`Nurse Practitioner - ${eventInfo.ert_provider_0}`}
                                                         />
                                                     </td>
                                                 </tr>
@@ -282,20 +280,15 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Nutritionist"
-                                                            onCallService="nutritionist"
-                                                            serviceDate={setNutritionistDates()}
-                                                            provider={setNutritionists()}
+                                                            entries={getNutritionistEntries()}
                                                         />
-                                                    
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Genetic Counselor"
-                                                            onCallService="genetic_counselor"
-                                                            serviceDate={[eventInfo.genetic_counselor_date_0, eventInfo.genetic_counselor_date_1]}
-                                                            provider={[eventInfo.genetic_counselor_genetic_counselor_0, eventInfo.genetic_counselor_genetic_counselor_1]}
+                                                            entries={getGeneticCounselorEntries()}
                                                         />
                                                     </td>
                                                 </tr>
@@ -303,8 +296,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Residents in Clinic"
-                                                            onCallService="residents_in_clinic"
-                                                            resident={eventInfo.residents_in_clinic_residents_value}
+                                                            resident={formatResidentsInClinic()}
                                                         />
                                                     </td>
                                                 </tr>
@@ -312,7 +304,6 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Perinatal (Resident)"
-                                                            onCallService="perinatal_resident"
                                                             serviceDate={eventInfo.perinatal_resident_date_0}
                                                             resident={eventInfo.perinatal_resident_resident_0}
                                                         />
@@ -322,7 +313,6 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Laboratory Rotation"
-                                                            onCallService="laboratory_rotation"
                                                             serviceDate={eventInfo.laboratory_rotation_date_0}
                                                             resident={eventInfo.laboratory_rotation_resident_0}
                                                         />
@@ -332,7 +322,6 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Cancer Rotation"
-                                                            onCallService="cancer_rotation"
                                                             serviceDate={eventInfo.cancer_rotation_date_0}
                                                             resident={eventInfo.cancer_rotation_resident_0}
                                                         />
@@ -384,7 +373,7 @@ export default function PreviewEmail({ eventWeek }) {
                                             <td className="em_section_table" align="left" valign="top">
                                                 <PreviewOutOfOffice
                                                     dates={setOutOfOfficeDates()}
-                                                    names={setOutOfOffcieNames()}
+                                                    names={setOutOfOfficeNames()}
                                                 />
                                             </td>
                                         </tr>
