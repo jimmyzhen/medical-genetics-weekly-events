@@ -183,9 +183,6 @@ function wrapEmailDocument(bodyHtml, subject) {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css" integrity="sha512-yDUXOUWwbHH4ggxueDnC5vJv4tmfySpVdIcN1LksGZi8W8EVZv4uKGrQc0pVf66zS7LDhFJM7Zdeow1sw1/8Jw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!--<![endif]-->
-<style type="text/css">
-${EMAIL_CSS}
-</style>
 </head>
 <body bgcolor="#eeeeee" class="em_body" style="margin:0px auto; padding:0px; background-color:#eeeeee;">
 ${bodyHtml}
@@ -211,9 +208,10 @@ export const handler = async (event) => {
     }
 
     const fullDocument = wrapEmailDocument(html, subject);
-    const inlinedHtml = juice(fullDocument).replace(
+    const inlinedHtml = juice.inlineContent(fullDocument, EMAIL_CSS).replace(
         '</head>',
         `<style type="text/css">
+${EMAIL_CSS}
 table { mso-table-lspace: 0; mso-table-rspace: 0; }
 td, a, span { mso-line-height-rule: exactly; }
 </style>
