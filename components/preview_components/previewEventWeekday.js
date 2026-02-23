@@ -1,6 +1,7 @@
 import React from 'react';
+import WeeklyEvents from '../../data/WeeklyEvents';
 
-const MAX_EVENTS_PER_DAY = 3;
+const MAX_EVENTS_PER_DAY = Math.max(...WeeklyEvents.map(day => day.events.length));
 
 function PreviewEventWeekday({
     weekday,
