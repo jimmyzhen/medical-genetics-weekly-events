@@ -13,10 +13,10 @@ export default function mergeArrays(arr1, arr2, key1 = 'key1', key2 = 'key2') {
         throw new Error('Arrays must be of equal length');
     }
 
-    const trimmedArr1 = arr1.filter((value) => value.length);
-
-    return trimmedArr1.map((value, index) => ({
-        [key1]: value,
-        [key2]: arr2[index]
-    }));
+    return arr1.reduce((result, value, index) => {
+        if (value.length) {
+            result.push({ [key1]: value, [key2]: arr2[index] });
+        }
+        return result;
+    }, []);
 }
