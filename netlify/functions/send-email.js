@@ -21,12 +21,9 @@ p {
 table {
     border-collapse: collapse;
     font-family: 'Source Sans Pro', Arial, sans-serif;
-    mso-table-lspace: 0;
-    mso-table-rspace: 0;
 }
 td, a, span {
     border-collapse: collapse;
-    mso-line-height-rule: exactly;
 }
 .em_defaultlink a {
     color: inherit !important;
@@ -187,6 +184,10 @@ function wrapEmailDocument(bodyHtml, subject) {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css" integrity="sha512-yDUXOUWwbHH4ggxueDnC5vJv4tmfySpVdIcN1LksGZi8W8EVZv4uKGrQc0pVf66zS7LDhFJM7Zdeow1sw1/8Jw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!--<![endif]-->
 <style type="text/css">
+table { mso-table-lspace: 0; mso-table-rspace: 0; }
+td, a, span { mso-line-height-rule: exactly; }
+</style>
+<style type="text/css">
 ${EMAIL_CSS}
 </style>
 </head>
@@ -214,7 +215,7 @@ export const handler = async (event) => {
     }
 
     const fullDocument = wrapEmailDocument(html, subject);
-    const inlinedHtml = juice(fullDocument);
+    const inlinedHtml = juice(fullDocument, { removeStyleTags: false });
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
