@@ -100,7 +100,7 @@ export default function PreviewEmail({ eventWeek }) {
                             <table align="center" border={0} cellSpacing={0} cellPadding={0}>
                                 <tbody><tr>
                                     <td align="center" valign="top" bgcolor="#ffffff">
-                                    <img src="/som-division-medical-genetics-logo.png" alt="The Division of Medical Genetics" border={0} height={49} width={420} style={{maxWidth: 420}} />
+                                    <img src="https://mg-events.netlify.app/som-division-medical-genetics-logo.png" alt="The Division of Medical Genetics" border={0} height={49} width={420} style={{maxWidth: 420}} />
                                     </td>
                                 </tr>
                                 </tbody></table>
@@ -164,7 +164,7 @@ export default function PreviewEmail({ eventWeek }) {
                                 <tbody><tr>
                                     <td align="center" valign="top" className="section-marker">
                                     <div className="section-marker-deco">
-                                        <i className="fa-solid fa-dna" style={{color: '#ffffff'}} />
+                                        🧬
                                     </div>
                                     </td>
                                 </tr>
@@ -221,7 +221,7 @@ export default function PreviewEmail({ eventWeek }) {
                                 <tbody><tr>
                                     <td align="center" valign="top" className="section-marker">
                                     <div className="section-marker-deco">
-                                        <i className="fa-solid fa-dna" style={{color: '#ffffff'}} />
+                                        🧬
                                     </div>
                                     </td>
                                 </tr>
@@ -357,7 +357,7 @@ export default function PreviewEmail({ eventWeek }) {
                                 <tbody><tr>
                                     <td align="center" valign="top" className="section-marker">
                                     <div className="section-marker-deco">
-                                        <i className="fa-solid fa-dna" style={{color: '#ffffff'}} />
+                                        🧬
                                     </div>
                                     </td>
                                 </tr>
