@@ -26,7 +26,7 @@ function PreviewEventWeekday({
     return (
         <>
             <div className="em_section_table_event_day">
-                <i className="fa-solid fa-calendar-days em_section_table_event_day_icon" />{`${weekdayLabel}, ${date}`}
+                <span className="em_section_table_event_day_icon">📅</span>{`${weekdayLabel}, ${date}`}
             </div>
             <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
                 <tbody>
@@ -50,7 +50,7 @@ function PreviewEventWeekday({
                     {events.map((event, index) => (
                         <tr key={index}>
                             <td align="left" valign="top" className="em_section_table_event_time">
-                            <i className="fa-solid fa-clock em_section_table_event_time_icon" />{event.time}
+                            <span className="em_section_table_event_time_icon">🕐</span>{event.time}
                             </td>
                             <td align="left" valign="top" className="em_section_table_event_detail">
                                 {event.title}
