@@ -20,7 +20,7 @@ function PreviewOnCallSchedule({
     return (
         <>
             <div className="em_section_table_oncall_service">
-                <i className="fa-solid fa-stethoscope em_section_table_oncall_icon" />{serviceTitle}
+                <span className="em_section_table_oncall_icon">🩺</span>{serviceTitle}
             </div>
             <table align="left" width="100%" border={0} cellSpacing={0} cellPadding={0}>
                 <tbody>
@@ -29,7 +29,7 @@ function PreviewOnCallSchedule({
                         entries.map((entry, index) => (
                             <tr key={index}>
                                 <td align="left" valign="top" className="em_section_table_oncall_date">
-                                    <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon"/>{entry.date}
+                                    <span className="em_section_table_oncall_date_icon">📅</span>{entry.date}
                                 </td>
                                 <td align="left" valign="top" className="em_section_table_oncall_detail">
                                     <p>{entry.name}</p>
@@ -41,7 +41,7 @@ function PreviewOnCallSchedule({
                         <tr>
                             {serviceDate && (
                                 <td align="left" valign="top" className="em_section_table_oncall_date">
-                                    <i className="fa-solid fa-calendar-days em_section_table_oncall_date_icon"/>{serviceDate}
+                                    <span className="em_section_table_oncall_date_icon">📅</span>{serviceDate}
                                 </td>
                             )}
                             <td align="left" valign="top" className="em_section_table_oncall_detail" colSpan={!serviceDate ? 2 : ''}>
