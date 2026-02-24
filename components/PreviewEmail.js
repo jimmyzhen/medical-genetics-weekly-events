@@ -89,8 +89,8 @@ export default function PreviewEmail({ eventWeek }) {
                     <table align="center" width={650} border={0} cellSpacing={0} cellPadding={0} className="em_main_table" style={{width: 650, tableLayout: 'fixed'}}>
                         <tbody><tr>
                             <td align="center" valign="top" style={{fontSize: 13, lineHeight: '16px', fontFamily: '"Source Sans Pro", Arial, sans-serif', padding: '15px 15px 16px', color: '#4d4f53'}}>
-                            News from the Division of Medical Genetics. | <a href="*|ARCHIVE|*" target="_blank" style={{textDecoration: 'underline', color: '#8c1515', whiteSpace: 'nowrap'}}>View
-                                in browser</a> </td>
+                                Weekly Schedule | Division of Medical Genetics
+                            </td>
                         </tr>
                         <tr>
                             <td align="center" valign="top" bgcolor="#4d4f53" height={2} style={{height: 2, fontSize: 0, lineHeight: 0, backgroundColor: '#4d4f53'}}>&nbsp;</td>
