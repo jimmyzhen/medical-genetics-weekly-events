@@ -61,7 +61,7 @@ export default function Preview() {
     }
 
     const week = eventWeek?.data?.week || 'Unknown Week';
-    const subject = `Medical Genetics Newsletter - Week of ${week}`;
+    const subject = `Division of Medical Genetics Weekly Schedule - Week of ${week}`;
 
     setSendStatus('sending');
     setSendError('');
