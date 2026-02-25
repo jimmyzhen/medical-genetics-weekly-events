@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+import sgMail from '@sendgrid/mail';
 import juice from 'juice';
 
 const EMAIL_CSS = `
@@ -216,24 +216,25 @@ td, a, span { mso-line-height-rule: exactly; }
 </head>`
     );
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    const { data, error } = await resend.emails.send({
-        from: process.env.RESEND_FROM_EMAIL,
-        to: process.env.RESEND_RECIPIENTS,
-        subject,
-        html: inlinedHtml,
-    });
+    try {
+        const [response] = await sgMail.send({
+            from: process.env.SENDGRID_FROM_EMAIL,
+            to: process.env.SENDGRID_RECIPIENTS,
+            subject,
+            html: inlinedHtml,
+        });
 
-    if (error) {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ success: true, statusCode: response.statusCode }),
+        };
+    } catch (err) {
+        const message = err.response?.body?.errors?.[0]?.message || err.message;
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: error.message }),
+            body: JSON.stringify({ error: message }),
         };
     }
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify({ success: true, id: data.id }),
-    };
 };
