@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "4",
+    "@sendgrid/mail": "^8.1.6",
     "axios": "^1.6.0",
     "cypress": "^13.6.4",
     "dayjs": "^1.11.9",
@@ -27,8 +28,7 @@
     "react": "^18.0.0",
     "react-bootstrap-typeahead": "6.3.2",
     "react-datepicker": "6.1.0",
-    "react-dom": "^18.0.0",
-    "resend": "^6.9.2"
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "netlify-plugin-cypress": "2.2.1"
