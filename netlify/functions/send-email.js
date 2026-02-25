@@ -22,9 +22,6 @@ table {
     border-collapse: collapse;
     font-family: 'Source Sans Pro', Arial, sans-serif;
 }
-td, a, span {
-    border-collapse: collapse;
-}
 .em_defaultlink a {
     color: inherit !important;
     text-decoration: none !important;
