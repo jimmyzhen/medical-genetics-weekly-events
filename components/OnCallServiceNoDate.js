@@ -13,9 +13,21 @@ function OnCallServiceNoDate({
     names,
     multiSelect,
     placeholder,
+    initialData,
 }) {
+    function parseInitialNames() {
+        const valueRaw = initialData?.[`${onCallService}_${role}_value`];
+        if (valueRaw) {
+            try {
+                const parsed = JSON.parse(valueRaw);
+                if (Array.isArray(parsed)) return parsed;
+            } catch { /* fall through */ }
+        }
+        return [];
+    }
+
     const onCallNamesRef = useRef(null);
-    const [onCallNames, setOnCallNames] = useState([]);
+    const [onCallNames, setOnCallNames] = useState(initialData ? parseInitialNames() : []);
 
     return (
         <div className={styles.weekdaycontainer}>
