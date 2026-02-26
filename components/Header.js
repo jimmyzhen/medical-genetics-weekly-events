@@ -1,6 +1,29 @@
+function handleLogout() {
+  fetch('/api/logout', { method: 'POST' }).then(() => {
+    window.location.href = '/login';
+  });
+}
+
 export default function Header({ title }) {
   return (
     <>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <button
+          onClick={handleLogout}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#666',
+            cursor: 'pointer',
+            fontSize: '1.1rem',
+            fontWeight: 'bold',
+            textDecoration: 'underline',
+            padding: 0,
+          }}
+        >
+          Sign Out
+        </button>
+      </div>
       <h1 className="title">{title}</h1>
       {/*
       <p>
