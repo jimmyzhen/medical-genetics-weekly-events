@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import PreviewEmail from "@components/PreviewEmail";
 import Footer from '@components/Footer';
+
+const DRAFT_KEY = 'mg-weekly-events-draft';
 
 function sortEventsByDate(events) {
   events.sort((a, b) => {
@@ -15,6 +18,7 @@ function sortEventsByDate(events) {
 }
 
 export default function Preview() {
+  const router = useRouter();
   const [eventWeek, setEventWeek] = useState({});
   const [sendStatus, setSendStatus] = useState('idle');
   const [sendError, setSendError] = useState('');
@@ -47,6 +51,13 @@ export default function Preview() {
       console.log('error === ', error);
     });
   }, []);
+
+  const handleEdit = () => {
+    if (eventWeek?.data) {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(eventWeek.data));
+      router.push('/');
+    }
+  };
 
   const handleSendEmail = async () => {
     if (!window.confirm('Are you sure you want to send this newsletter email?')) {
@@ -96,7 +107,24 @@ export default function Preview() {
           <PreviewEmail eventWeek={eventWeek} />
         </div>
 
-        <div style={{ textAlign: 'center', padding: '24px 0' }}>
+        <div style={{ textAlign: 'center', padding: '24px 0', display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+          <button
+            onClick={handleEdit}
+            disabled={!eventWeek?.data}
+            style={{
+              backgroundColor: '#1565c0',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '8px',
+              padding: '12px 32px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              cursor: eventWeek?.data ? 'pointer' : 'not-allowed',
+              opacity: eventWeek?.data ? 1 : 0.5,
+            }}
+          >
+            Edit
+          </button>
           <button
             onClick={handleSendEmail}
             disabled={sendStatus === 'sending'}
@@ -117,17 +145,17 @@ export default function Preview() {
             {sendStatus === 'success' && 'Email Sent!'}
             {sendStatus === 'error' && 'Retry Send'}
           </button>
-          {sendStatus === 'error' && (
-            <p style={{ color: '#d32f2f', marginTop: '8px', fontSize: '14px' }}>
-              Error: {sendError}
-            </p>
-          )}
-          {sendStatus === 'success' && (
-            <p style={{ color: '#2e7d32', marginTop: '8px', fontSize: '14px' }}>
-              Newsletter sent successfully!
-            </p>
-          )}
         </div>
+        {sendStatus === 'error' && (
+          <p style={{ color: '#d32f2f', textAlign: 'center', fontSize: '14px' }}>
+            Error: {sendError}
+          </p>
+        )}
+        {sendStatus === 'success' && (
+          <p style={{ color: '#2e7d32', textAlign: 'center', fontSize: '14px' }}>
+            Newsletter sent successfully!
+          </p>
+        )}
       </main>
 
       <Footer />
