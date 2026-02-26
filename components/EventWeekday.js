@@ -6,7 +6,7 @@ import Event from './Event';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './FeedbackForm.module.css';
 
-function Weekday({ dailySchedule, weekStartDate }) {
+function Weekday({ dailySchedule, weekStartDate, initialData }) {
     const [eventDate, setEventDate] = useState(new Date());
     const { day, events } = dailySchedule;
 
@@ -53,6 +53,7 @@ function Weekday({ dailySchedule, weekStartDate }) {
                 id={`${dayPrefix}_event_announcement`}
                 name={`${dayPrefix}_event_announcement`}
                 placeholder="Example: NO Pediatric Grand Rounds - will resume on Sept 05, 2023"
+                defaultValue={initialData?.[`${dayPrefix}_event_announcement`] || ''}
             />
 
             <table className={styles.table}>
@@ -72,6 +73,7 @@ function Weekday({ dailySchedule, weekStartDate }) {
                                 dayPrefix={dayPrefix}
                                 event={event}
                                 index={index}
+                                initialData={initialData}
                             />
                         );
                     })}
