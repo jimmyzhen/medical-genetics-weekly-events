@@ -15,6 +15,7 @@ function OnCallServiceMultiSelect({
     placeholder,
     entries,
     hasDateRange,
+    initialData,
 }) {
     return (
         <div className={styles.weekdaycontainer}>
@@ -40,6 +41,7 @@ function OnCallServiceMultiSelect({
                             multiSelect={multiSelect}
                             hasDateRange={hasDateRange}
                             index={0}
+                            initialData={initialData}
                         />
                     )}
                     {entries && entries.map((entry, index) => {
@@ -53,6 +55,7 @@ function OnCallServiceMultiSelect({
                                 multiSelect={multiSelect}
                                 hasDateRange={hasDateRange}
                                 index={index}
+                                initialData={initialData}
                             />
                         );
                     })}
