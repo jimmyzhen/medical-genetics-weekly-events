@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 function handleLogout() {
   fetch('/api/logout', { method: 'POST' }).then(() => {
     window.location.href = '/login';
@@ -7,7 +9,18 @@ function handleLogout() {
 export default function Header({ title }) {
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '16px' }}>
+        <nav style={{ display: 'flex', gap: '16px' }}>
+          <Link href="/" style={{ color: '#1565c0', fontWeight: 'bold', textDecoration: 'none', fontSize: '1rem' }}>
+            Form
+          </Link>
+          <Link href="/preview" style={{ color: '#1565c0', fontWeight: 'bold', textDecoration: 'none', fontSize: '1rem' }}>
+            Preview
+          </Link>
+          <Link href="/history" style={{ color: '#1565c0', fontWeight: 'bold', textDecoration: 'none', fontSize: '1rem' }}>
+            History
+          </Link>
+        </nav>
         <button
           onClick={handleLogout}
           style={{
