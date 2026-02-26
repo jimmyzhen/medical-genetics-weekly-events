@@ -7,13 +7,34 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import styles from './FeedbackForm.module.css';
 
-function OnCallService({ title, onCallService }) {
-    const [dateRange, setDateRange] = useState([null, null]);
+function OnCallService({ title, onCallService, initialData }) {
+    function parseInitialDateRange() {
+        const raw = initialData?.[`${onCallService}_date`];
+        if (!raw) return [null, null];
+        // Netlify stores date range as "MMM d - MMM d" string
+        const parts = raw.split(' - ');
+        if (parts.length === 2) {
+            return [new Date(parts[0] + ', ' + new Date().getFullYear()), new Date(parts[1] + ', ' + new Date().getFullYear())];
+        }
+        return [null, null];
+    }
+
+    function findStaffMatch(staffList, nameStr) {
+        if (!nameStr) return [];
+        const match = staffList.find(s => `${s.firstname} ${s.lastname}` === nameStr);
+        return match ? [match] : [];
+    }
+
+    const [dateRange, setDateRange] = useState(initialData ? parseInitialDateRange() : [null, null]);
     const [startDate, endDate] = dateRange;
     const attendingPhysiciansRef = useRef(null);
     const residentsRef = useRef(null);
-    const [attendingPhysician, setAttendingPhysician] = useState([]);
-    const [resident, setResident] = useState([]);
+    const [attendingPhysician, setAttendingPhysician] = useState(
+        findStaffMatch(OnCallServiceStaff.attendingPhysicians, initialData?.[`${onCallService}_attending`])
+    );
+    const [resident, setResident] = useState(
+        findStaffMatch(OnCallServiceStaff.residents, initialData?.[`${onCallService}_resident`])
+    );
     
     return (
         <div className={styles.weekdaycontainer}>
