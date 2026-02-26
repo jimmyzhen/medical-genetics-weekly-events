@@ -13,13 +13,49 @@ function OnCallServiceItem({
     multiSelect,
     hasDateRange,
     index,
+    initialData,
 }) {
-    const [dateRange, setDateRange] = useState([null, null]);
+    function parseInitialDate() {
+        const raw = initialData?.[`${onCallService}_date_${index}`];
+        if (!raw) return { dateRange: [null, null], singleDate: null, isRange: false };
+        // Check if it's a range (contains " - ")
+        if (raw.includes(' - ')) {
+            const parts = raw.split(' - ');
+            const year = new Date().getFullYear();
+            return {
+                dateRange: [new Date(parts[0] + ', ' + year), new Date(parts[1] + ', ' + year)],
+                singleDate: null,
+                isRange: true,
+            };
+        }
+        return { dateRange: [null, null], singleDate: new Date(raw + ', ' + new Date().getFullYear()), isRange: false };
+    }
+
+    function parseInitialNames() {
+        // Try the _value field first (JSON array for multi-select)
+        const valueRaw = initialData?.[`${onCallService}_${role}_${index}_value`];
+        if (valueRaw) {
+            try {
+                const parsed = JSON.parse(valueRaw);
+                if (Array.isArray(parsed)) return parsed;
+            } catch { /* fall through */ }
+        }
+        // Try the plain field (single select typeahead stores display text)
+        const plain = initialData?.[`${onCallService}_${role}_${index}`];
+        if (plain) {
+            const match = names.find(n => `${n.firstname} ${n.lastname}` === plain);
+            return match ? [match] : [];
+        }
+        return [];
+    }
+
+    const initDate = parseInitialDate();
+    const [dateRange, setDateRange] = useState(initialData ? initDate.dateRange : [null, null]);
     const [startDate, endDate] = dateRange;
-    const [singleStartDate, setSingleStartDate] = useState(null);
+    const [singleStartDate, setSingleStartDate] = useState(initialData ? initDate.singleDate : null);
     const onCallNamesRef = useRef(null);
-    const [onCallNames, setOnCallNames] = useState([]);
-    const [isChecked, setIsChecked] = useState(false);
+    const [onCallNames, setOnCallNames] = useState(initialData ? parseInitialNames() : []);
+    const [isChecked, setIsChecked] = useState(initialData ? initDate.isRange : false);
     
     return (
         <tr>
