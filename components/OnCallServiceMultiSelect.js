@@ -51,7 +51,7 @@ function OnCallServiceMultiSelect({
                                 names={names}
                                 onCallService={onCallService}
                                 role={role}
-                                placeholder={placeholder}
+                                placeholder={entry.placeholder || placeholder}
                                 multiSelect={multiSelect}
                                 hasDateRange={hasDateRange}
                                 index={index}

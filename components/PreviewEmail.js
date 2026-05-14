@@ -65,12 +65,13 @@ export default function PreviewEmail({ eventWeek }) {
     }
 
     function getGeneticCounselorEntries() {
-        const gcCount = OnCallServiceEntries.geneticCounselor.length;
-        const dates = collectFormEntries('genetic_counselor_date_', gcCount);
-        const names = collectFormEntries('genetic_counselor_genetic_counselor_', gcCount);
-        return mergeArrays(dates, names, 'date', 'name').map(
-            (entry) => ({ ...entry, name: `GC - ${entry.name}` })
+        const gcEntries = OnCallServiceEntries.geneticCounselor;
+        const dates = collectFormEntries('genetic_counselor_date_', gcEntries.length);
+        const names = collectFormEntries('genetic_counselor_genetic_counselor_', gcEntries.length);
+        const prefixedNames = names.map((name, i) =>
+            gcEntries[i]?.isTriage ? `Triage GC - ${name}` : `GC - ${name}`
         );
+        return mergeArrays(dates, prefixedNames, 'date', 'name');
     }
 
     return (

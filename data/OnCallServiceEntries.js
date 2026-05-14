@@ -8,6 +8,12 @@ const OnCallServiceEntries = {
             id: 2,
             name: '',
         },
+        {
+            id: 3,
+            name: '',
+            isTriage: true,
+            placeholder: 'Choose triage genetic counselor...',
+        },
     ],
     nutritionist: [
         {
