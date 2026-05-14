@@ -82,19 +82,22 @@ export default function PreviewEmail({ eventWeek }) {
         const count = OnCallServiceEntries.ert.length;
         const dates = collectFormEntries('ert_date_', count);
         const providers = collectFormEntries('ert_provider_', count);
-        return mergeArrays(dates, providers, 'date', 'name').map(
-            ({ date, name }) => ({ date, name: `Nurse Practitioner - ${name}` })
-        );
+        return mergeArrays(dates, providers, 'date', 'name')
+            .filter(({ name }) => name)
+            .map(({ date, name }) => ({ date, name: `Nurse Practitioner - ${name}` }));
     }
 
     function getGeneticCounselorEntries() {
         const gcEntries = OnCallServiceEntries.geneticCounselor;
         const dates = collectFormEntries('genetic_counselor_date_', gcEntries.length);
         const names = collectFormEntries('genetic_counselor_genetic_counselor_', gcEntries.length);
-        const prefixedNames = names.map((name, i) =>
-            gcEntries[i]?.isTriage ? `Triage GC - ${name}` : `GC - ${name}`
-        );
-        return mergeArrays(dates, prefixedNames, 'date', 'name');
+        const entries = [];
+        for (let i = 0; i < gcEntries.length; i++) {
+            if (!dates[i] || !names[i]) continue;
+            const prefix = gcEntries[i]?.isTriage ? 'Triage GC' : 'GC';
+            entries.push({ date: dates[i], name: `${prefix} - ${names[i]}` });
+        }
+        return entries;
     }
 
     return (
@@ -145,21 +148,21 @@ export default function PreviewEmail({ eventWeek }) {
                                                     </span>
                                                     </td>
                                                 </tr>
-                                                {eventInfo.announcement && eventInfo.announcement.length > 0 && (
-                                                    <tr>
+                                                {['announcement', 'announcement_2'].filter(key => eventInfo[key]?.length > 0).map(key => (
+                                                    <tr key={key}>
                                                         <td align="center" valign="top" style={{padding: '0 0 20px 0'}}>
                                                             <table align="center" width="100%" border={0} cellSpacing={0} cellPadding={0} style={{borderCollapse: 'collapse', borderRadius: 24, overflow: 'hidden'}}>
                                                                 <tbody>
                                                                     <tr>
                                                                         <td className="em_announcement">
-                                                                        <span>{eventInfo.announcement}</span>
+                                                                        <span>{eventInfo[key]}</span>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
                                                         </td>
                                                     </tr>
-                                                )}
+                                                ))}
                                             </tbody>
                                         </table>
                                     </td>
