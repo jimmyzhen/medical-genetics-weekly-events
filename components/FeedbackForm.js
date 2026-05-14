@@ -7,7 +7,6 @@ import OnCallServiceStaff from '../data/OnCallServiceStaff';
 import OnCallServiceEntries from '../data/OnCallServiceEntries';
 import OnCallService from './OnCallService';
 import OnCallServiceMultiSelect from './OnCallServiceMultiSelect';
-import OnCallServiceNoDate from './OnCallServiceNoDate';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './FeedbackForm.module.css';
@@ -201,54 +200,6 @@ export default function FeedbackForm() {
         multiSelect={false}
         placeholder="Choose genetic counselor..."
         entries={OnCallServiceEntries.geneticCounselor}
-        initialData={initialData}
-      />
-
-      {/* On-Call Schedule - Residents in Clinic */}
-      <OnCallServiceNoDate
-        title="Residents in Clinic"
-        onCallService="residents_in_clinic"
-        role="residents"
-        roleLabel="Residents"
-        names={OnCallServiceStaff.residents}
-        multiSelect={true}
-        placeholder="Choose residents..."
-        initialData={initialData}
-      />
-
-      {/* On-Call Schedule - Perinatal (Resident) */}
-      <OnCallServiceMultiSelect
-        title="Perinatal (Resident)"
-        onCallService="perinatal_resident"
-        role="resident"
-        roleLabel="Resident"
-        names={OnCallServiceStaff.residents}
-        multiSelect={false}
-        placeholder="Choose resident..."
-        initialData={initialData}
-      />
-
-      {/* On-Call Schedule - Laboratory Rotation */}
-      <OnCallServiceMultiSelect
-        title="Laboratory Rotation"
-        onCallService="laboratory_rotation"
-        role="resident"
-        roleLabel="Resident"
-        names={OnCallServiceStaff.residents}
-        multiSelect={false}
-        placeholder="Choose resident..."
-        initialData={initialData}
-      />
-
-      {/* On-Call Schedule - Cancer Rotation */}
-      <OnCallServiceMultiSelect
-        title="Cancer Rotation"
-        onCallService="cancer_rotation"
-        role="resident"
-        roleLabel="Resident"
-        names={OnCallServiceStaff.residents}
-        multiSelect={false}
-        placeholder="Choose resident..."
         initialData={initialData}
       />
 

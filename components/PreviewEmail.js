@@ -73,13 +73,6 @@ export default function PreviewEmail({ eventWeek }) {
         );
     }
 
-    function formatResidentsInClinic() {
-        const raw = eventInfo.residents_in_clinic_residents_value;
-        if (!raw) return '';
-        const residents = JSON.parse(raw);
-        return residents.map((r) => `Dr. ${r.firstname} ${r.lastname}`).join(', ');
-    }
-
     return (
         <div className={styles['preview-container']}>
             {/* == Header Section == */}
@@ -289,41 +282,6 @@ export default function PreviewEmail({ eventWeek }) {
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Genetic Counselor"
                                                             entries={getGeneticCounselorEntries()}
-                                                        />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_oncall">
-                                                        <PreviewOnCallSchedule
-                                                            serviceTitle="Residents in Clinic"
-                                                            resident={formatResidentsInClinic()}
-                                                        />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_oncall">
-                                                        <PreviewOnCallSchedule
-                                                            serviceTitle="Perinatal (Resident)"
-                                                            serviceDate={eventInfo.perinatal_resident_date_0}
-                                                            resident={eventInfo.perinatal_resident_resident_0}
-                                                        />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_oncall">
-                                                        <PreviewOnCallSchedule
-                                                            serviceTitle="Laboratory Rotation"
-                                                            serviceDate={eventInfo.laboratory_rotation_date_0}
-                                                            resident={eventInfo.laboratory_rotation_resident_0}
-                                                        />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="left" valign="top" className="em_section_table_oncall">
-                                                        <PreviewOnCallSchedule
-                                                            serviceTitle="Cancer Rotation"
-                                                            serviceDate={eventInfo.cancer_rotation_date_0}
-                                                            resident={eventInfo.cancer_rotation_resident_0}
                                                         />
                                                     </td>
                                                 </tr>
