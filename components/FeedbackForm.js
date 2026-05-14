@@ -124,8 +124,9 @@ export default function FeedbackForm() {
         required={true}
       />
 
-      <label htmlFor="email">Announcement</label>
-      <input id="announcement" className={styles['form-field']} type="text" name="announcement" placeholder="Example: Happy birthday to Devon!" defaultValue={initialData?.announcement || ''} />
+      <label htmlFor="announcement">Announcement</label>
+      <input id="announcement" className={styles['form-field']} type="text" name="announcement" placeholder="Enter an announcement" defaultValue={initialData?.announcement || ''} />
+      <input className={styles['form-field']} type="text" name="announcement_2" placeholder="Enter an announcement" defaultValue={initialData?.announcement_2 || ''} />
 
       <h2 className={styles.sectionhead}>Events</h2>
 
