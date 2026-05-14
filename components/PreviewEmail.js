@@ -64,6 +64,29 @@ export default function PreviewEmail({ eventWeek }) {
         return mergeArrays(dates, names, 'date', 'name');
     }
 
+    function getOnCallServiceEntries(onCallServiceKey, rowCount) {
+        const entries = [];
+        for (let i = 0; i < rowCount; i++) {
+            const date = eventInfo[`${onCallServiceKey}_date_${i}`];
+            const attending = eventInfo[`${onCallServiceKey}_attending_${i}`];
+            const resident = eventInfo[`${onCallServiceKey}_resident_${i}`];
+            if (date) {
+                const name = [attending ? `Dr. ${attending}` : '', resident ? `Dr. ${resident}` : ''].filter(Boolean).join(', ');
+                entries.push({ date, name });
+            }
+        }
+        return entries;
+    }
+
+    function getERTEntries() {
+        const count = OnCallServiceEntries.ert.length;
+        const dates = collectFormEntries('ert_date_', count);
+        const providers = collectFormEntries('ert_provider_', count);
+        return mergeArrays(dates, providers, 'date', 'name').map(
+            ({ date, name }) => ({ date, name: `Nurse Practitioner - ${name}` })
+        );
+    }
+
     function getGeneticCounselorEntries() {
         const gcEntries = OnCallServiceEntries.geneticCounselor;
         const dates = collectFormEntries('genetic_counselor_date_', gcEntries.length);
@@ -235,9 +258,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Medical Genetics Service"
-                                                            serviceDate={eventInfo.medical_genetics_service_date}
-                                                            attending={eventInfo.medical_genetics_service_attending}
-                                                            resident={`Dr. ${eventInfo.medical_genetics_service_resident}`}
+                                                            entries={getOnCallServiceEntries('medical_genetics_service', 2)}
                                                         />
                                                     </td>
                                                 </tr>
@@ -245,9 +266,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Perinatal Genetics"
-                                                            serviceDate={eventInfo.perinatal_genetics_date}
-                                                            attending={eventInfo.perinatal_genetics_attending}
-                                                            resident={`Dr. ${eventInfo.perinatal_genetics_resident}`}
+                                                            entries={getOnCallServiceEntries('perinatal_genetics', 2)}
                                                         />
                                                     </td>
                                                 </tr>
@@ -255,9 +274,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="Biochemical Genetics"
-                                                            serviceDate={eventInfo.biochemical_genetics_date}
-                                                            attending={eventInfo.biochemical_genetics_attending}
-                                                            resident={`Dr. ${eventInfo.biochemical_genetics_resident}`}
+                                                            entries={getOnCallServiceEntries('biochemical_genetics', 2)}
                                                         />
                                                     </td>
                                                 </tr>
@@ -265,8 +282,7 @@ export default function PreviewEmail({ eventWeek }) {
                                                     <td align="left" valign="top" className="em_section_table_oncall">
                                                         <PreviewOnCallSchedule
                                                             serviceTitle="ERT"
-                                                            serviceDate={eventInfo.ert_date_0}
-                                                            provider={`Nurse Practitioner - ${eventInfo.ert_provider_0}`}
+                                                            entries={getERTEntries()}
                                                         />
                                                     </td>
                                                 </tr>

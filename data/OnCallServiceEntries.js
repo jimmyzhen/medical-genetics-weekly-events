@@ -1,4 +1,14 @@
 const OnCallServiceEntries = {
+    ert: [
+        {
+            id: 1,
+            name: '',
+        },
+        {
+            id: 2,
+            name: '',
+        },
+    ],
     geneticCounselor: [
         {
             id: 1,

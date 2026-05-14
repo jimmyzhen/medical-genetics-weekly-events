@@ -147,6 +147,7 @@ export default function FeedbackForm() {
       <OnCallService
         title="Medical Genetics Service"
         onCallService="medical_genetics_service"
+        rows={2}
         initialData={initialData}
       />
 
@@ -154,6 +155,7 @@ export default function FeedbackForm() {
       <OnCallService
         title="Perinatal Genetics"
         onCallService="perinatal_genetics"
+        rows={2}
         initialData={initialData}
       />
 
@@ -161,6 +163,7 @@ export default function FeedbackForm() {
       <OnCallService
         title="Biochemical Genetics"
         onCallService="biochemical_genetics"
+        rows={2}
         initialData={initialData}
       />
 
@@ -173,6 +176,7 @@ export default function FeedbackForm() {
         names={OnCallServiceStaff.ertProvider}
         multiSelect={false}
         placeholder="Choose nurse practitioner..."
+        entries={OnCallServiceEntries.ert}
         initialData={initialData}
       />
 
